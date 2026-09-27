@@ -3,145 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Recycling Guide</title>
+    <title>EcoSort Hub // Prevention & Recycling Guide</title>
     <style>
         :root {
-            --primary-color: #2e7d32;
-            --secondary-color: #81c784;
-            --accent-color: #f1f8e9;
-            --text-color: #333333;
-            --bg-color: #f9fbf8;
+            --primary: #059669;
+            --primary-light: #ecfdf5;
+            --primary-dark: #065f46;
+            --bg-canvas: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            padding: 0 0 3rem 0;
+            line-height: 1.5;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-align: center;
-            padding: 2.5rem 1rem;
+        .navbar {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
+        .nav-brand {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
         }
 
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        main {
-            max-width: 900px;
+        .wrapper {
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1.5rem;
         }
 
-        section {
-            background: white;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-        }
-
-        .guide-grid {
+        .dashboard-split {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
-        .card {
-            background: var(--accent-color);
-            padding: 1.5rem;
-            border-radius: 6px;
-            border-left: 4px solid var(--primary-color);
+        @media (max-width: 900px) {
+            .dashboard-split {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .card h3 {
-            margin-top: 0;
-            color: var(--primary-color);
+        .panel-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
         }
 
-        ul {
-            padding-left: 1.2rem;
-        }
-
-        li {
+        .panel-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background: #263238;
-            color: #cfd8dc;
-            margin-top: 3rem;
+        .panel-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
+
+        .search-control {
+            width: 100%;
+            padding: 0.85rem 1.25rem;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background-color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .search-control:focus {
+            outline: none;
+            background-color: var(--bg-surface);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+        }
+
+        /* Responsive Categories Grid Layout */
+        .type-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .type-group {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            background-color: var(--bg-canvas);
+        }
+
+        .type-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .type-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .badge-pill {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .badge-pill.recycle { background-color: var(--primary-light); color: var(--primary-dark); }
+        .badge-pill.compost { background-color: #fef3c7; color: #92400e; }
+        .badge-pill.trash { background-color: #f1f5f9; color: #475569; }
+
+        /* Integrated Prevention Strategy Box UI */
+        .prevention-box {
+            background-color: var(--bg-surface);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .prevention-box.compost { border-left-color: #d97706; }
+        .prevention-box.trash { border-left-color: #64748b; }
+
+        .prevention-box strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .items-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .item-tag {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Sidebar Elements */
+        .form-element { margin-bottom: 1.25rem; }
+        .form-element label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .form-field { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; }
+        .action-submit { width: 100%; background-color: var(--primary); color: white; border: none; padding: 0.85rem; font-size: 0.95rem; font-weight: 600; border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); }
+        .action-submit:hover { background-color: var(--primary-dark); }
+        .output-panel { margin-top: 1.5rem; padding: 1.25rem; background-color: #f1f5f9; border-radius: var(--radius-md); display: none; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Smart Recycling Guide</h1>
-        <p>Reduce, Reuse, Recycle — Protect Our Environment</p>
-    </header>
+    <nav class="navbar">
+        <div class="nav-brand">🌱 EcoSort Hub</div>
+        <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted)">Cross-Platform UI</div>
+    </nav>
 
-    <main>
-        <section>
-            <h2>How Can We Help?</h2>
-            <p>The waste that we create has to be carefully controlled to ensure it does not harm our environment and public health. Adopting smart recycling habits is a simple yet powerful step toward a sustainable future.</p>
-        </section>
+    <div class="wrapper">
+        <div class="dashboard-split">
+            
+            <!-- Left Side Categories List -->
+            <main class="panel-card">
+                <h2>Material Classification Directory</h2>
+                <p class="panel-subtitle">Filter categories or search items to view source prevention methods and sorting groups.</p>
+                
+                <input type="text" id="dirSearchCtrl" class="search-control" placeholder="Search specific items (e.g. bottle, can, box, peel)..." onkeyup="filterItems()">
+                
+                <div class="type-sections">
+                    
+                    <!-- Type 1: Plastics -->
+                    <div class="type-group" data-tokens="plastic bottle water soda juice wrapper tub jug container">
+                        <div class="type-header">
+                            <span class="type-title">🥤 Plastics</span>
+                            <span class="badge-pill recycle">Recycle</span>
+                        </div>
+                        <div class="prevention-box">
+                            <strong>🚫 Prevention Strategy:</strong>
+                            Switch to reusable alternatives like stainless steel water bottles, silicone bags, and cloth grocery sacks to cut out single-use packaging.
+                        </div>
+                        <div class="items-list">
+                            <div class="item-tag">Water Bottles</div>
+                            <div class="item-tag">Milk Jugs</div>
+                            <div class="item-tag">Juice Containers</div>
+                        </div>
+                    </div>
 
-        <section>
-            <h2>Core Principles</h2>
-            <div class="guide-grid">
-                <div class="card">
-                    <h3>What is Garbage?</h3>
-                    <p>Unwanted or discarded materials resulting from human activities that require proper segregation and disposal management.</p>
-                </div>
-                <div class="card">
-                    <h3>Reduce, Reuse & Recycle</h3>
-                    <p><strong>Reduce</strong> consumption, <strong>Reuse</strong> items creatively, and <strong>Recycle</strong> materials to give them a second life.</p>
-                </div>
-            </div>
-        </section>
+                    <!-- Type 2: Cardboard & Paper -->
+                    <div class="type-group" data-tokens="cardboard paper corrugated box packaging delivery mail newsletter">
+                        <div class="type-header">
+                            <span class="type-title">📦 Cardboard & Paper</span>
+                            <span class="badge-pill recycle">Recycle</span>
+                        </div>
+                        <div class="prevention-box">
+                            <strong>🚫 Prevention Strategy:</strong>
+                            Opt for digital invoices and statements, cancel junk mail subscriptions, and choose products sold with minimal or loose packaging.
+                        </div>
+                        <div class="items-list">
+                            <div class="item-tag">Delivery Boxes</div>
+                            <div class="item-tag">Newspapers</div>
+                            <div class="item-tag">Office Paper</div>
+                        </div>
+                    </div>
 
-        <section>
-            <h2>Community & Action Plan</h2>
-            <ul>
-                <li><strong>Kids Club Initiatives:</strong> Engaging youth in environmental awareness.
-                    <ol>
-                        <li>Weekly Eco-Activities and clean-up drives.</li>
-                        <li>Interactive learning via Recycle City models.</li>
-                    </ol>
-                </li>
-                <li><strong>Proper Material Sorting:</strong> Separating paper, plastics, glass, and organic waste.</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Smart Recycling Guide. Contact us to become an active member!</p>
-    </footer>
-
-</body>
-</html>
+                    <!-- Type 3: Aluminum & Metal -->
+                    <div class="type-group" data-tokens="aluminum soda pop carbonated beverage tin metal steel can packaging">
+                        <div class="type-header">
+                            <span class="type-title">🥫 Aluminum & Metals</span>
+                            <span class="badge-pill recycle">Recycle</span>
+                        </div>
+                        <div class="prevention-box">
+                            <strong>🚫 Prevention Strategy:</strong>
+                            Buy items in bulk or concentrated forms to reduce the total number of cans purchased, or choose loose whole products when possible.
+                        </div>
+                        <div class="items-list">
+                            <div class="item-tag">Soda Cans</div>
