@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPay // Smart Recycling</title>
+    <style>
+        :root {
+            --gpay-blue: #1a73e8;
+            --gpay-green: #1e8e3e;
+            --gpay-yellow: #f9ab00;
+            --gpay-red: #d93025;
+            --bg-gray: #f8f9fa;
+            --text-dark: #202124;
+            --text-muted: #5f6368;
+            --card-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        /* Mobile App View Wrapper Container */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 850px;
+            max-height: 90vh;
+        }
+
+        /* GPay Header UI Style */
+        .app-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .profile-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #e8f0fe;
+            color: var(--gpay-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .app-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Insights Card Module Layout */
+        .balance-card {
+            background: linear-gradient(135deg, #1a73e8, #1557b0);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -40px;
+            right: -20px;
+        }
+
+        .balance-card h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .balance-amount {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        /* Round Shortcuts / Actions Grid Layout */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+            transition: var(--transition);
+        }
+
+        .action-button:hover .icon-circle {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(60,64,67,0.4);
+        }
+
+        .action-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Pill Search Bar Style */
+        .gpay-search {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            border: 1px solid #dadce0;
+            border-radius: 24px;
+            font-size: 0.95rem;
+            background-color: #ffffff;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .gpay-search:focus {
+            border-color: var(--gpay-blue);
+            box-shadow: 0 1px 3px 0 rgba(26,115,232,0.3);
+        }
+
+        /* Recent Activity Transactions List View Layout */
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #f1f3f4;
+            transition: var(--transition);
+        }
+
+        .item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .item-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .item-status {
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        /* GPay Stable Bottom Modal Popup Panel Sheet Layout */
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+            padding: 2rem 1.5rem 1.5rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
+
+        .bottom-sheet.active {
+            transform: translate(-50%, 0);
+        }
+
+        .sheet-handle {
+            width: 36px;
+            height: 4px;
+            background-color: #dadce0;
+            border-radius: 2px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gpay-btn {
+            background-color: var(--gpay-blue);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(32,33,36,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 15;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <span style="font-weight: 700; color: var(--text-dark); font-size: 1.1rem;">♻️ EcoPay</span>
+            <div class="profile-icon">♻️</div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="app-content">
+            
+            <!-- Dashboard Score Overview Card -->
+            <div class="balance-card">
+                <h3>Eco Impact Score</h3>
+                <div class="balance-amount" id="ecoPointsDisplay">240 pts</div>
+                <p style="font-size: 0.8rem; opacity: 0.9;">🔥 Level 3 Recycling Champion</p>
+            </div>
+
+            <!-- Quick Action Category Circles Grid -->
+            <div class="action-grid">
+                <button class="action-button" onclick="filterCategory('plastic')">
+                    <div class="icon-circle" style="background-color: #e8f0fe; color: var(--gpay-blue);">🥤</div>
+                    <span class="action-label">Plastics</span>
+                </button>
+                <button class="action-button" onclick="filterCategory('paper')">
+                    <div class="icon-circle" style="background-color: #e6f4ea; color: var(--gpay-green);">📦</div>
+                    <span class="action-label">Paper</span>
+                </button>
+                <button class="action-button" onclick="filterCategory('compost')">
+                    <div class="icon-circle" style="background-color: #fef7e0; color: var(--gpay-yellow);">🍌</div>
+                    <span class="action-label">Compost</span>
+                </button>
+                <button class="action-button" onclick="openClaimRewards()">
+                    <div class="icon-circle" style="background-color: #fce8e6; color: var(--gpay-red);">🎁</div>
+                    <span class="action-label">Rewards</span>
+                </button>
+            </div>
+
+            <!-- Search input bar -->
+            <input type="text" id="gpaySearchInput" class="gpay-search" placeholder="Search items to sort safely..." onkeyup="executeLiveSearch()">
+
+            <!-- Recent Tracking Transactions Directory List -->
+            <div class="section-title">Material Guide</div>
+            <div id="materialDirectoryList">
