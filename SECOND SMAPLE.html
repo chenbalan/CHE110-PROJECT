@@ -58,7 +58,7 @@
       margin-bottom: 12px;
     }
 
-    /* FEATURE 1: Live Stats Metric Grid Row */
+    /* Stats Metric Grid Row Layout */
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -90,7 +90,6 @@
     .card-title-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .card-title { font-size: 1.25rem; font-weight: 600; color: var(--text-heading); letter-spacing: -0.01em; }
 
-    /* FEATURE 2: Export Button Utilities */
     .btn-utility {
       background: transparent; border: 1px solid var(--border-subtle);
       padding: 6px 12px; border-radius: 6px; font-size: 0.85rem;
@@ -108,7 +107,7 @@
 
     .searchInput:focus { outline: none; border-color: var(--brand-emerald); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
 
-    /* FEATURE 3: Smart Autocomplete Chip Containers */
+    /* Autocomplete Chips styling */
     .suggestions-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
     .suggestion-label { font-size: 0.85rem; color: var(--text-muted); }
     .chip {
@@ -117,7 +116,7 @@
     }
     .chip:hover { background: #e2e8f0; color: var(--text-heading); }
 
-    /* FEATURE 4: Search History Output Cache */
+    /* Search History Box */
     .history-container { display: none; margin-top: 15px; border-top: 1px solid var(--border-subtle); padding-top: 12px; }
     .history-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
     .history-list { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -164,13 +163,25 @@
       <h1>Smart Recycling Guide</h1>
     </header>
 
-    <!-- FEATURE 1 UI Container: Dynamic Tracked Ecosystem Impact Elements -->
-    
+    <!-- Updated Responsive Action Stats Row -->
+    <section class="stats-row">
+      <div class="stat-box">
+        <div class="num" id="stat-landfill">0</div>
+        <div class="label">Items Searched</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-carbon">0</div>
+        <div class="label">Eco Tips Found</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-accuracy">0%</div>
+        <div class="label">Success Rate</div>
+      </div>
+    </section>
 
     <section class="search-card-wrapper">
       <div class="card-title-flex">
         <h2 class="card-title">Search Database</h2>
-        <!-- FEATURE 2 UI Button: Export Actions Callout -->
         <button class="btn-utility" onclick="window.print()">🖨️ Print Rules</button>
       </div>
       <p class="card-subtitle">Type your target material below to extract exact municipal sorting directives.</p>
@@ -179,7 +190,6 @@
         <input type="text" class="searchInput" id="searchInput" placeholder="Try typing 'cardboard', 'battery', or 'glass'..." oninput="searchDatabase()">
       </div>
 
-      <!-- FEATURE 3 UI Element: Hot Suggestions Inline Selection Chips -->
       <div class="suggestions-container">
         <span class="suggestion-label">Popular Searches:</span>
         <span class="chip" onclick="fillSearch('plastic bottle')">Plastic Bottle</span>
@@ -187,7 +197,6 @@
         <span class="chip" onclick="fillSearch('battery')">Batteries</span>
       </div>
 
-      <!-- FEATURE 4 UI Element: Search History Wrapper Cache Tracker -->
       <div id="historyBox" class="history-container">
         <div class="history-title">Recent Searches</div>
         <div id="historyList" class="history-list"></div>
@@ -227,3 +236,11 @@
           <li>Household batteries</li>
           <li>Electronics & E-Waste</li>
           <li>Light bulbs & paint</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const recyclingDatabase = [
+      { names: ["plastic", "bottle", "jug", "container"], type: "Recyclable", color: "#10b981", guide: "Rinse completely, remove plastic caps, and flatten if possible." },
