@@ -159,257 +159,32 @@
     @media (max-width: 600px) {
       .stats-row { grid-template-columns: 1fr; }
     }
-     :root {
-      --brand-emerald: #10b981;
-      --brand-blue: #3b82f6;
-      --brand-amber: #f59e0b;
-      --bg-canvas: #fafafa;
-      --card-surface: #ffffff;
-      --text-heading: #0f172a;
-      --text-body: #475569;
-      --text-muted: #94a3b8;
-      --border-subtle: #eaeaea;
-      --shadow-premium: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
-      --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-      --radius-smooth: 12px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-canvas);
-      color: var(--text-body);
-      line-height: 1.5;
-      padding: 60px 20px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container { max-width: 960px; margin: 0 auto; }
-
-    .app-header { text-align: center; margin-bottom: 40px; position: relative; }
-
-    .app-header .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: #ecfdf5;
-      color: var(--brand-emerald);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      border: 1px solid rgba(16, 185, 129, 0.15);
-    }
-
-    .app-header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-
-    /* Layout Split for Inputs and Circle Chart Container */
-    .dashboard-flex-grid {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 15px;
-      padding: 
-      margin-bottom: 40px;
-    }
-
-    .stats-row {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .stat-box {
-      background: var(--card-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-smooth);
-      padding: 20px;
-      box-shadow: var(--shadow-premium);
-    }
-
-    .label { 
-      font-size: 0.75rem; 
-      color: var(--text-muted); 
-      font-weight: 600; 
-      text-transform: uppercase; 
-      letter-spacing: 0.05em;
-      margin-top: 4px;
-    }
-
-    /* Editable Input System Custom Styling */
-    .stat-num-input {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: transparent;
-      border: none;
-      border-bottom: 2px dashed #cbd5e1;
-      width: 120px;
-      outline: none;
-      transition: border-color 0.2s;
-      padding: 0 4px;
-    }
-    #stat-landfill { color: var(--brand-blue); }
-    #stat-recycled-count { color: var(--brand-amber); }
-    #stat-weight { color: var(--brand-emerald); }
-    .stat-num-input:focus { border-bottom-color: var(--text-heading); }
-
-    .input-inline-wrap { display: flex; align-items: baseline; gap: 6px; }
-    .input-suffix { font-size: 1.4rem; font-weight: 700; color: #64748b; }
-
-    /* Hide HTML Number Spinners */
-    .stat-num-input::-webkit-outer-spin-button,
-    .stat-num-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    .stat-num-input[type=number] { -moz-appearance: textfield; }
-
-    /* Circle Chart Styling */
-    .chart-card-holder {
-      background: var(--card-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-smooth);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-premium);
-    }
-    .chart-container-relative { position: relative; width: 200px; height: 200px; }
-
-    .search-card-wrapper {
-      background: var(--card-surface);
-      padding: 40px;
-      border-radius: var(--radius-smooth);
-      box-shadow: var(--shadow-premium);
-      border: 1px solid var(--border-subtle);
-      margin-bottom: 40px;
-    }
-
-    .card-title { font-size: 1.5rem; font-weight: 600; color: var(--text-heading); margin-bottom: 8px; }
-    .card-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
-
-    .searchInput {
-      width: 100%; padding: 16px 20px; font-size: 1rem; font-family: inherit;
-      border: 1px solid #d1d5db; border-radius: 8px; background-color: #ffffff;
-      color: var(--text-heading); transition: all 0.15s ease-in-out;
-    }
-    .searchInput:focus { outline: none; border-color: var(--brand-emerald); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
-
-    /* Recent Changes & History Chips Design */
-    .history-container { 
-      margin-top: 16px; 
-      border-top: 1px solid var(--border-subtle); 
-      padding-top: 16px;
-      display: none; 
-    }
-    .history-header-flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .history-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .clear-history-btn { font-size: 0.8rem; color: #ef4444; background: none; border: none; cursor: pointer; font-weight: 500;}
-    .clear-history-btn:hover { text-decoration: underline; }
-    
-    .history-list { display: flex; gap: 8px; flex-wrap: wrap; }
-    .history-item { 
-      font-size: 0.85rem; 
-      background: #f1f5f9; 
-      border: 1px solid var(--border-subtle); 
-      padding: 6px 12px; 
-      border-radius: 20px; 
-      cursor: pointer;
-      color: var(--text-body);
-      transition: background 0.15s;
-    }
-    .history-item:hover { background: #e2e8f0; color: var(--text-heading); }
-
-    .result-card {
-      margin-top: 24px; padding: 20px; background-color: #fafafa;
-      border-radius: 8px; border: 1px solid var(--border-subtle);
-      border-left: 4px solid var(--brand-emerald); display: none;
-    }
-    .result-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
-    .result-card p { font-size: 0.95rem; color: var(--text-body); margin-bottom: 12px; }
-
-    .btn-log-action {
-      background-color: var(--brand-emerald); color: white; border: none;
-      padding: 8px 16px; border-radius: 6px; font-size: 0.9rem;
-      font-weight: 500; cursor: pointer; transition: background-color 0.2s ease;
-    }
-    .btn-log-action:hover { background-color: var(--brand-emerald-hover); }
-
-    .grid-section-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 18px; }
-    .categories-flex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .category-premium-card {
-      background: var(--card-surface); border-radius: var(--radius-smooth); padding: 30px;
-      border: 1px solid var(--border-subtle); box-shadow: var(--shadow-premium); cursor: pointer;
-      display: flex; flex-direction: column; transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
-    }
-    .category-premium-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .category-meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .category-meta-row h3 { font-size: 1.15rem; font-weight: 600; color: var(--text-heading); letter-spacing: -0.01em; }
-    .category-meta-row .emoji-wrapper { width: 32px; height: 32px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
-    .category-premium-card ul { list-style: none; }
-    .category-premium-card li { font-size: 0.95rem; color: var(--text-body); padding: 8px 0; border-bottom: 1px solid #f8fafc; }
-    .category-premium-card li:last-child { border-bottom: none; }
-
-    @media (max-width: 768px) {
-      .dashboard-flex-grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
 
-
-   <div class="container">
+  <div class="container">
     
     <header class="app-header">
       <div class="badge"><span>🌱</span> Sustainability Engine Active</div>
       <h1>Smart Recycling Guide</h1>
     </header>
 
-    <div class="dashboard-flex-grid">
-      <!-- Left: Inputs Form Fields Layout -->
-      <section class="stats-row">
-        <div class="stat-box">
-          <input type="number" class="stat-num-input" id="stat-landfill" value="0" min="0" oninput="updateCircularChart()">
-          <div class="label">Items Looked Up</div>
-        </div>
-
-        <div class="stat-box">
-          <div class="input-inline-wrap">
-            <input type="number" class="stat-num-input" id="stat-recycled-count" value="0" min="0" oninput="updateCircularChart()">
-            <span class="input-suffix">items</span>
-          </div>
-          <div class="label">Logged Collection</div>
-        </div>
-
-        <div class="stat-box">
-          <div class="input-inline-wrap">
-            <input type="number" class="stat-num-input" id="stat-weight" value="0.00" step="0.01" min="0" oninput="updateCircularChart()">
-            <span class="input-suffix">lbs</span>
-          </div>
-          <div class="label">Total Mass Diverted</div>
-        </div>
-      </section>
-
-      <!-- Right: Live Circular Progress Chart Canvas Frame -->
-      <section class="chart-card-holder">
-        <div class="label" style="margin-bottom: 12px; margin-top: 0; color: var(--text-heading)">Proportional Ratio Chart</div>
-        <div class="chart-container-relative">
-          <canvas id="ecoCircularChart"></canvas>
-        </div>
-      </section>
-    </div>
+    <section class="stats-row">
+      <div class="stat-box">
+        <div class="num" id="stat-landfill">0</div>
+        <div class="label">Items Looked Up</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-recycled-count">0 items</div>
+        <div class="label">Logged Collection</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="stat-weight">0.00 lbs</div>
+        <div class="label">Total Mass Diverted</div>
+      </div>
+    </section>
+    
 
     <section class="search-card-wrapper">
       <h2 class="card-title">Search Database</h2>

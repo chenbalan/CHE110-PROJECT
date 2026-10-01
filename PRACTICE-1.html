@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recycling Guide & Tracker</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #81c784;
+            --accent-color: #e8f5e9;
+            --text-color: #2c3e50;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: -2rem auto 3rem;
+            padding: 0 1rem;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Search Feature */
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .item-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: white;
+            margin-top: 0.5rem;
+        }
+
+        .badge.recycle { background-color: #2e7d32; }
+        .badge.compost { background-color: #8d6e63; }
+        .badge.trash { background-color: #757575; }
+
+        /* Calculator Feature */
+        .calc-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .calc-row input {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .results-box {
+            background: var(--accent-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Trivia Game Feature */
+        .trivia-container {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn:hover { background-color: #1b5e20; }
+        
+        .feedback { margin-top: 1rem; font-weight: bold; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #212121;
+            color: #e0e0e0;
+        }
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #81c784;
+            --accent-color: #f1f8e9;
+            --text-color: #333333;
+            --bg-color: #f9fbf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #263238;
+            color: #cfd8dc;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Smart Recycling Guide</h1>
+        <p>Your Interactive Assistant for a Cleaner Planet</p>
+    </header>
+
+    <main>
+        <!-- Feature 1: Live Waste Lookup -->
+        <section class="section-card">
+            <h2>Instant Item Directory</h2>
+            <p>Not sure where it goes? Type an item below to find its correct disposal bin:</p>
+            <input type="text" id="searchInput" class="search-box" placeholder="Search items (e.g., plastic bottle, banana peel, cardboard)..." onkeyup="filterItems()">
+            
+            <div class="item-grid" id="itemGrid">
+                <div class="item-card" data-name="plastic bottle water jug container">
+                    <strong>Plastic Bottle</strong>
+                    <div class="badge recycle">Recycle (Rinse first)</div>
+                </div>
+                <div class="item-card" data-name="cardboard paper box delivery package">
+                    <strong>Cardboard Box</strong>
+                    <div class="badge recycle">Recycle (Flatten)</div>
+                </div>
+                <div class="item-card" data-name="banana peel apple core food waste scraps">
+                    <strong>Food Scraps</strong>
+                    <div class="badge compost">Compost</div>
+                </div>
+                <div class="item-card" data-name="glass bottle jar container window">
+                    <strong>Glass Jar</strong>
+                    <div class="badge recycle">Recycle</div>
+                </div>
+                <div class="item-card" data-name="aluminum steel soda tin can packaging">
+                    <strong>Soda Can</strong>
+                    <div class="badge recycle">Recycle</div>
+                </div>
+                <div class="item-card" data-name="styrofoam coffee cup takeout container packaging">
+                    <strong>Styrofoam Cup</strong>
+                    <div class="badge trash">Trash / Landfill</div>
+                </div>
+                <div class="item-card" data-name="plastic bag wrap bubble film grocery sack">
+                    <strong>Plastic Grocery Bag</strong>
+                    <div class="badge trash">Store Drop-off Only</div>
+                </div>
+                <div class="item-card" data-name="light bulb incandescent led fluorescent">
+                    <strong>Light Bulb</strong>
+                    <div class="badge trash">Hazardous Waste / Special</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature 2: Eco-Impact Calculator -->
+        <section class="section-card">
+            <h2> Your Eco-Impact Calculator</h2>
+            <p>Enter the estimated count of items you recycle weekly to view your collective environmental savings:</p>
+            
+            <div class="calc-row">
+                <label>Plastic Bottles:</label>
+                <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
+            </div>
+            <div class="calc-row">
+                <label>Aluminium Cans:</label>
+                <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
+            </div>
+            <div class="calc-row">
+                <label>Cardboard Boxes / Paper items:</label>
+                <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
+            </div>
+
+            <div class="results-box">
+                Weekly Environmental Savings Estimate:<br>
+                🌱 CO₂ Emissions Prevented: <span id="co2Saved">0</span> kg<br>
+                💧 Water Conserved: <span id="waterSaved">0</span> Litres
+            </div>
+        </section>
+
+        
+    </main>
+
+    
+
+    <main>
+        <section>
+            <h2>How Can We Help?</h2>
+            <p>The waste that we create has to be carefully controlled to ensure it does not harm our environment and public health. Adopting smart recycling habits is a simple yet powerful step toward a sustainable future.</p>
+        </section>
+
+        <section>
+            <h2>Core Principles</h2>
+            <div class="guide-grid">
+                <div class="card">
+                    <h3>What is Garbage?</h3>
+                    <p>Unwanted or discarded materials resulting from human activities that require proper segregation and disposal management.</p>
+                </div>
+                <div class="card">
+                    <h3>Reduce, Reuse & Recycle</h3>
+                    <p><strong>Reduce</strong> consumption, <strong>Reuse</strong> items creatively, and <strong>Recycle</strong> materials to give them a second life.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Community & Action Plan</h2>
+            <ul>
+                <li><strong>Kids Club Initiatives:</strong> Engaging youth in environmental awareness.
+                    <ol>
+                        <li>Weekly Eco-Activities and clean-up drives.</li>
+                        <li>Interactive learning via Recycle City models.</li>
+                    </ol>
+                </li>
+                <li><strong>Proper Material Sorting:</strong> Separating paper, plastics, glass, and organic waste.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Smart Recycling Guide. Contact us to become an active member!</p>
+    </footer>
+
+    <script>
+        // Search Filter Logic
+        function filterItems() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('item-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Impact Calculator Logic
+        function calculateImpact() {
+            let plastic = parseInt(document.getElementById('calcPlastic').value) || 0;
+            let alum = parseInt(document.getElementById('calcAlum').value) || 0;
