@@ -258,7 +258,7 @@
             color: #cfd8dc;
             margin-top: 3rem;
         }
-        /* Card Wrapper Structure */
+        /* Container Element definitions */
 .section-card {
     background: #ffffff;
     border: 2px solid var(--border-color, #e2e8f0);
@@ -274,7 +274,6 @@
     font-size: 20px;
 }
 
-/* Row Alignment */
 .calc-row {
     display: flex;
     justify-content: space-between;
@@ -288,7 +287,6 @@
     color: var(--text-primary, #2d3748);
 }
 
-/* Input Nodes */
 .calc-row input[type="number"] {
     width: 80px;
     padding: 8px 12px;
@@ -304,7 +302,61 @@
     border-color: var(--recycle-green, #276749);
 }
 
-/* Dynamic Live Metrics Output Box */
+/* Visualization Framework */
+.chart-container {
+    margin-top: 24px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.chart-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary, #718096);
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.chart-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chart-row:last-child {
+    margin-bottom: 0;
+}
+
+.chart-label {
+    width: 110px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.bar-track {
+    flex: 1;
+    background: #e2e8f0;
+    height: 12px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 50px;
+    transition: width 0.3s ease-out;
+}
+
+/* Color codes mapping structural metrics */
+.co2-bar { background-color: #48bb78; }
+.water-bar { background-color: #4299e1; }
+.energy-bar { background-color: #ecc94b; }
+
+/* Dynamic Summary and Conversions Blocks */
 .results-box {
     margin-top: 20px;
     background-color: var(--recycle-green-light, #e6fffa);
@@ -319,6 +371,38 @@
 .stat-highlight {
     font-weight: 700;
     color: var(--recycle-green, #276749);
+}
+
+.fun-statement {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+/* Control Toolbar Configuration */
+.control-toolbar {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reset-btn {
+    background-color: transparent;
+    color: #e53e3e;
+    border: 1px solid #e53e3e;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+    background-color: #fff5f5;
+    transform: scale(0.98);
 }
 
     </style>
@@ -395,48 +479,110 @@
         <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
     </div>
 
+    <!-- Live Performance Visualizer (Bar Graph) -->
+    <div class="chart-container">
+        <div class="chart-title">Visualized Environmental Impact</div>
+        
+        <div class="chart-row">
+            <span class="chart-label">🌱 CO₂ (kg):</span>
+            <div class="bar-track">
+                <div id="barCo2" class="bar-fill co2-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <div class="chart-row">
+            <span class="chart-label">💧 Water (L):</span>
+            <div class="bar-track">
+                <div id="barWater" class="bar-fill water-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <div class="chart-row">
+            <span class="chart-label">⚡ Energy (kWh):</span>
+            <div class="bar-track">
+                <div id="barEnergy" class="bar-fill energy-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="results-box">
         <strong>Weekly Environmental Savings Estimate:</strong><br>
         🌱 CO₂ Emissions Prevented: <span id="co2Saved" class="stat-highlight">0</span> kg<br>
-        💧 Water Conserved: <span id="waterSaved" class="stat-highlight">0</span> Litres
+        💧 Water Conserved: <span id="waterSaved" class="stat-highlight">0</span> Litres<br>
+        ⚡ Electricity Preserved: <span id="energySaved" class="stat-highlight">0</span> kWh
+        
+        <!-- Contextual Translation Component -->
+        <div class="fun-statement" id="funStatement">
+            Your preserved energy could charge a smartphone for <strong>0</strong> days!
+        </div>
+    </div>
+
+    <!-- Action Controller Toolbar -->
+    <div class="control-toolbar">
+        <button type="button" class="reset-btn" onclick="clearCalculator()">Wipe Clear & Reset Cache</button>
     </div>
 </section>
 
 <script>
 function calculateImpact() {
-    // 1. Fetch values safely from input fields, fallback to 0 if empty
     const plasticCount = parseFloat(document.getElementById('calcPlastic').value) || 0;
     const alumCount = parseFloat(document.getElementById('calcAlum').value) || 0;
     const paperCount = parseFloat(document.getElementById('calcPaper').value) || 0;
 
-    // 2. Define standard environmental conversion metrics per unit
-    // Plastic Bottle savings metrics
-    const plasticCo2PerUnit = 0.05; 
-    const plasticWaterPerUnit = 3.0;
+    // Cache the numerical states inside client profile configurations
+    localStorage.setItem('eco_calcPlastic', plasticCount);
+    localStorage.setItem('eco_calcAlum', alumCount);
+    localStorage.setItem('eco_calcPaper', paperCount);
 
-    // Aluminium Can savings metrics
-    const alumCo2PerUnit = 0.09;
-    const alumWaterPerUnit = 1.5;
+    // Multipliers
+    const plasticCo2PerUnit = 0.05; const plasticWaterPerUnit = 3.0; const plasticEnergyPerUnit = 0.4;
+    const alumCo2PerUnit = 0.09;    const alumWaterPerUnit = 1.5;    const alumEnergyPerUnit = 0.6;
+    const paperCo2PerUnit = 0.15;   const paperWaterPerUnit = 5.0;   const paperEnergyPerUnit = 0.3;
 
-    // Cardboard / Paper savings metrics
-    const paperCo2PerUnit = 0.15;
-    const paperWaterPerUnit = 5.0;
+    // Aggregate Calculations
+    const totalCo2 = (plasticCount * plasticCo2PerUnit) + (alumCount * alumCo2PerUnit) + (paperCount * paperCo2PerUnit);
+    const totalWater = (plasticCount * plasticWaterPerUnit) + (alumCount * alumWaterPerUnit) + (paperCount * paperWaterPerUnit);
+    const totalEnergy = (plasticCount * plasticEnergyPerUnit) + (alumCount * alumEnergyPerUnit) + (paperCount * paperEnergyPerUnit);
 
-    // 3. Compute running product totals
-    const totalCo2 = (plasticCount * plasticCo2PerUnit) + 
-                     (alumCount * alumCo2PerUnit) + 
-                     (paperCount * paperCo2PerUnit);
-
-    const totalWater = (plasticCount * plasticWaterPerUnit) + 
-                       (alumCount * alumWaterPerUnit) + 
-                       (paperCount * paperWaterPerUnit);
-
-    // 4. Update the DOM displays formatted to 1 decimal place max for clean parsing
+    // Print text nodes
     document.getElementById('co2Saved').textContent = totalCo2.toFixed(1);
     document.getElementById('waterSaved').textContent = totalWater.toFixed(1);
-}
-</script>
+    document.getElementById('energySaved').textContent = totalEnergy.toFixed(1);
 
+    // Contextual equivalence: 1 day of phone charging is roughly 0.015 kWh
+    const phoneDays = Math.floor(totalEnergy / 0.015);
+    document.getElementById('funStatement').innerHTML = `💡 Your preserved energy could charge a standard smartphone for <strong>${phoneDays.toLocaleString()}</strong> days!`;
+
+    // Dynamic Chart Scalers (Capped cleanly at 100% boundary limiters)
+    const maxChartBaseline = 50; 
+    document.getElementById('barCo2').style.width = Math.min((totalCo2 / maxChartBaseline) * 100, 100) + '%';
+    document.getElementById('barWater').style.width = Math.min((totalWater / (maxChartBaseline * 5)) * 100, 100) + '%';
+    document.getElementById('barEnergy').style.width = Math.min((totalEnergy / maxChartBaseline) * 100, 100) + '%';
+}
+
+function clearCalculator() {
+    // Purge specific storage nodes securely
+    localStorage.removeItem('eco_calcPlastic');
+    localStorage.removeItem('eco_calcAlum');
+    localStorage.removeItem('eco_calcPaper');
+
+    // Restore field levels back to baseline parameters
+    document.getElementById('calcPlastic').value = 0;
+    document.getElementById('calcAlum').value = 0;
+    document.getElementById('calcPaper').value = 0;
+
+    // Recalculate UI states to reflect clear data
+    calculateImpact();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('eco_calcPlastic') !== null) document.getElementById('calcPlastic').value = localStorage.getItem('eco_calcPlastic');
+    if (localStorage.getItem('eco_calcAlum') !== null) document.getElementById('calcAlum').value = localStorage.getItem('eco_calcAlum');
+    if (localStorage.getItem('eco_calcPaper') !== null) document.getElementById('calcPaper').value = localStorage.getItem('eco_calcPaper');
+    calculateImpact();
+});
+</script>
+    
 
         
     </main>
