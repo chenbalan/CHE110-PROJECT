@@ -258,7 +258,7 @@
             color: #cfd8dc;
             margin-top: 3rem;
         }
-        /* Container Element definitions */
+        /* Card Container Base Layout */
 .section-card {
     background: #ffffff;
     border: 2px solid var(--border-color, #e2e8f0);
@@ -267,12 +267,7 @@
     margin-top: 30px;
     text-align: left;
 }
-
-.section-card h2 {
-    margin-top: 0;
-    color: var(--recycle-green, #276749);
-    font-size: 20px;
-}
+.section-card h2 { margin-top: 0; color: var(--recycle-green, #276749); font-size: 20px; }
 
 .calc-row {
     display: flex;
@@ -280,12 +275,7 @@
     align-items: center;
     margin-bottom: 12px;
 }
-
-.calc-row label {
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--text-primary, #2d3748);
-}
+.calc-row label { font-weight: 600; font-size: 14px; color: var(--text-primary, #2d3748); }
 
 .calc-row input[type="number"] {
     width: 80px;
@@ -295,115 +285,76 @@
     font-size: 15px;
     text-align: right;
     outline: none;
-    transition: border-color 0.2s;
 }
+.calc-row input[type="number"]:focus { border-color: var(--recycle-green, #276749); }
 
-.calc-row input[type="number"]:focus {
-    border-color: var(--recycle-green, #276749);
-}
-
-/* Visualization Framework */
-.chart-container {
-    margin-top: 24px;
-    background: #f8fafc;
-    border: 1px solid var(--border-color, #e2e8f0);
-    border-radius: 8px;
-    padding: 16px;
-}
-
-.chart-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--text-secondary, #718096);
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
-}
-
-.chart-row {
+/* NEW: Input Wrapper + Delete Action Configurations */
+.input-actions-wrapper {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 8px;
 }
-
-.chart-row:last-child {
-    margin-bottom: 0;
-}
-
-.chart-label {
-    width: 110px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.bar-track {
-    flex: 1;
-    background: #e2e8f0;
-    height: 12px;
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-.bar-fill {
-    height: 100%;
-    width: 0%;
-    border-radius: 50px;
-    transition: width 0.3s ease-out;
-}
-
-/* Color codes mapping structural metrics */
-.co2-bar { background-color: #48bb78; }
-.water-bar { background-color: #4299e1; }
-.energy-bar { background-color: #ecc94b; }
-
-/* Dynamic Summary and Conversions Blocks */
-.results-box {
-    margin-top: 20px;
-    background-color: var(--recycle-green-light, #e6fffa);
-    border-left: 4px solid var(--recycle-green, #276749);
-    padding: 16px;
-    border-radius: 0 8px 8px 0;
-    font-size: 15px;
-    color: #1a202c;
-    line-height: 1.8;
-}
-
-.stat-highlight {
-    font-weight: 700;
-    color: var(--recycle-green, #276749);
-}
-
-.fun-statement {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px dashed #cbd5e1;
+.remove-row-btn {
+    background: none;
+    border: none;
+    color: #cbd5e1;
     font-size: 14px;
-    color: #4a5568;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
 }
+.remove-row-btn:hover { color: #e53e3e; }
 
-/* Control Toolbar Configuration */
-.control-toolbar {
-    margin-top: 16px;
+/* NEW: Custom Dynamic Add Item Controls Layout */
+.add-item-toolbar {
     display: flex;
-    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed #e2e8f0;
 }
-
-.reset-btn {
-    background-color: transparent;
-    color: #e53e3e;
-    border: 1px solid #e53e3e;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 13px;
+.add-item-toolbar select {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    background-color: #fff;
+}
+.add-item-toolbar .add-btn {
+    background-color: var(--recycle-green, #276749);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    font-size: 14px;
+    transition: background-color 0.2s;
 }
+.add-item-toolbar .add-btn:hover { background-color: #1e562f; }
 
-.reset-btn:hover {
-    background-color: #fff5f5;
-    transform: scale(0.98);
-}
+/* Enhanced Visual Progress Graph Visuals */
+.chart-container { margin-top: 28px; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(148, 163, 184, 0.06); }
+.chart-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 1.2px; margin-bottom: 20px; }
+.chart-row { display: flex; align-items: center; margin-bottom: 18px; }
+.chart-label { width: 120px; font-size: 14px; font-weight: 600; color: #334155; display: flex; align-items: center; gap: 6px; }
+.bar-track { flex: 1; background: #f1f5f9; height: 14px; border-radius: 100px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; width: 0%; border-radius: 100px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.co2-bar { background: linear-gradient(90deg, #34d399, #10b981); }
+.water-bar { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+.energy-bar { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+
+/* Dynamic Summary and Conversions Blocks */
+.results-box { margin-top: 20px; background-color: var(--recycle-green-light, #e6fffa); border-left: 4px solid var(--recycle-green, #276749); padding: 16px; border-radius: 0 8px 8px 0; font-size: 15px; color: #1a202c; line-height: 1.8; }
+.stat-highlight { font-weight: 700; color: var(--recycle-green, #276749); }
+.fun-statement { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 14px; color: #4a5568; }
+
+/* Control Toolbar Configuration */
+.control-toolbar { margin-top: 16px; display: flex; justify-content: flex-end; }
+.reset-btn { background-color: transparent; color: #e53e3e; border: 1px solid #e53e3e; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.reset-btn:hover { background-color: #fff5f5; }
 
     </style>
 </head>
@@ -466,37 +417,49 @@
     <h2>Your Eco-Impact Calculator</h2>
     <p>Enter the estimated count of items you recycle weekly to view your collective environmental savings:</p>
     
-    <div class="calc-row">
-        <label for="calcPlastic">Plastic Bottles:</label>
-        <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
+    <!-- Container for dynamic calculation rows -->
+    <div id="dynamicCalcRows">
+        <div class="calc-row" data-item="plastic">
+            <label for="calcPlastic">Plastic Bottles:</label>
+            <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
+        </div>
+        <div class="calc-row" data-item="alum">
+            <label for="calcAlum">Aluminium Cans:</label>
+            <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
+        </div>
+        <div class="calc-row" data-item="paper">
+            <label for="calcPaper">Cardboard Boxes / Paper items:</label>
+            <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
+        </div>
     </div>
-    <div class="calc-row">
-        <label for="calcAlum">Aluminium Cans:</label>
-        <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
-    </div>
-    <div class="calc-row">
-        <label for="calcPaper">Cardboard Boxes / Paper items:</label>
-        <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
+
+    <!-- NEW: Item Selector Toolbar Component -->
+    <div class="add-item-toolbar">
+        <select id="itemSelector">
+            <option value="" disabled selected>Choose an item to add...</option>
+            <option value="glass">Glass Jars</option>
+            <option value="ewaste">Electrical / E-Waste</option>
+            <option value="food">Food Scraps (Compost)</option>
+            <option value="lightbulb">Light Bulbs</option>
+        </select>
+        <button type="button" class="add-btn" onclick="addNewCalculatorRow()">+ Add Item</button>
     </div>
 
     <!-- Live Performance Visualizer (Bar Graph) -->
     <div class="chart-container">
         <div class="chart-title">Visualized Environmental Impact</div>
-        
         <div class="chart-row">
             <span class="chart-label">🌱 CO₂ (kg):</span>
             <div class="bar-track">
                 <div id="barCo2" class="bar-fill co2-bar" style="width: 0%;"></div>
             </div>
         </div>
-        
         <div class="chart-row">
             <span class="chart-label">💧 Water (L):</span>
             <div class="bar-track">
                 <div id="barWater" class="bar-fill water-bar" style="width: 0%;"></div>
             </div>
         </div>
-        
         <div class="chart-row">
             <span class="chart-label">⚡ Energy (kWh):</span>
             <div class="bar-track">
@@ -511,9 +474,8 @@
         💧 Water Conserved: <span id="waterSaved" class="stat-highlight">0</span> Litres<br>
         ⚡ Electricity Preserved: <span id="energySaved" class="stat-highlight">0</span> kWh
         
-        <!-- Contextual Translation Component -->
         <div class="fun-statement" id="funStatement">
-            Your preserved energy could charge a smartphone for <strong>0</strong> days!
+            💡 Your preserved energy could charge a standard smartphone for <strong>0</strong> days!
         </div>
     </div>
 
@@ -524,36 +486,106 @@
 </section>
 
 <script>
+// Environmental multipliers database lookup object
+const itemMetrics = {
+    plastic:  { co2: 0.05, water: 3.0, energy: 0.4 },
+    alum:     { co2: 0.09, water: 1.5, energy: 0.6 },
+    paper:    { co2: 0.15, water: 5.0, energy: 0.3 },
+    glass:    { co2: 0.08, water: 2.0, energy: 0.25 },
+    ewaste:   { co2: 0.45, water: 8.0, energy: 1.5 },
+    food:     { co2: 0.12, water: 0.5, energy: 0.1 },
+    lightbulb:{ co2: 0.20, water: 1.0, energy: 0.5 }
+};
+
+// Tracks which extra items are currently visible in the DOM
+let activeExtraItems = JSON.parse(localStorage.getItem('eco_activeExtras')) || [];
+
+function addNewCalculatorRow() {
+    const selector = document.getElementById('itemSelector');
+    const selectedKey = selector.value;
+    if (!selectedKey) return;
+
+    // Prevent duplicate rows from being added
+    if (document.querySelector(`.calc-row[data-item="${selectedKey}"]`)) {
+        alert("This item has already been added to your calculator list!");
+        return;
+    }
+
+    createRowDOM(selectedKey, 0);
+    activeExtraItems.push(selectedKey);
+    localStorage.setItem('eco_activeExtras', JSON.stringify(activeExtraItems));
+    
+    // Reset selection option back to prompt state
+    selector.value = "";
+    calculateImpact();
+}
+
+function createRowDOM(key, savedValue) {
+    const parentContainer = document.getElementById('dynamicCalcRows');
+    const labelNames = { glass: "Glass Jars:", ewaste: "Electrical / E-Waste:", food: "Food Scraps:", lightbulb: "Light Bulbs:" };
+
+    const row = document.createElement('div');
+    row.className = 'calc-row dynamic-row';
+    row.setAttribute('data-item', key);
+
+    row.innerHTML = `
+        <label for="calc_${key}">${labelNames[key]}</label>
+        <div class="input-actions-wrapper">
+            <input type="number" id="calc_${key}" value="${savedValue}" min="0" oninput="calculateImpact()">
+            <button type="button" class="remove-row-btn" onclick="removeCalculatorRow('${key}')">✕</button>
+        </div>
+    `;
+    parentContainer.appendChild(row);
+}
+
+function removeCalculatorRow(key) {
+    const row = document.querySelector(`.calc-row[data-item="${key}"]`);
+    if (row) row.remove();
+
+    activeExtraItems = activeExtraItems.filter(item => item !== key);
+    localStorage.setItem('eco_activeExtras', JSON.stringify(activeExtraItems));
+    localStorage.removeItem(`eco_calc_${key}`);
+
+    calculateImpact();
+}
+
 function calculateImpact() {
-    const plasticCount = parseFloat(document.getElementById('calcPlastic').value) || 0;
-    const alumCount = parseFloat(document.getElementById('calcAlum').value) || 0;
-    const paperCount = parseFloat(document.getElementById('calcPaper').value) || 0;
+    let totalCo2 = 0, totalWater = 0, totalEnergy = 0;
 
-    // Cache the numerical states inside client profile configurations
-    localStorage.setItem('eco_calcPlastic', plasticCount);
-    localStorage.setItem('eco_calcAlum', alumCount);
-    localStorage.setItem('eco_calcPaper', paperCount);
+    // Standard base rows tracking loop
+    const baseItems = ['plastic', 'alum', 'paper'];
+    baseItems.forEach(item => {
+        const id = 'calc' + item.charAt(0).toUpperCase() + item.slice(1);
+        const count = parseFloat(document.getElementById(id).value) || 0;
+        localStorage.setItem(`eco_${id}`, count);
 
-    // Multipliers
-    const plasticCo2PerUnit = 0.05; const plasticWaterPerUnit = 3.0; const plasticEnergyPerUnit = 0.4;
-    const alumCo2PerUnit = 0.09;    const alumWaterPerUnit = 1.5;    const alumEnergyPerUnit = 0.6;
-    const paperCo2PerUnit = 0.15;   const paperWaterPerUnit = 5.0;   const paperEnergyPerUnit = 0.3;
+        totalCo2 += count * itemMetrics[item].co2;
+        totalWater += count * itemMetrics[item].water;
+        totalEnergy += count * itemMetrics[item].energy;
+    });
 
-    // Aggregate Calculations
-    const totalCo2 = (plasticCount * plasticCo2PerUnit) + (alumCount * alumCo2PerUnit) + (paperCount * paperCo2PerUnit);
-    const totalWater = (plasticCount * plasticWaterPerUnit) + (alumCount * alumWaterPerUnit) + (paperCount * paperWaterPerUnit);
-    const totalEnergy = (plasticCount * plasticEnergyPerUnit) + (alumCount * alumEnergyPerUnit) + (paperCount * paperEnergyPerUnit);
+    // Dynamic expanded user items loops
+    activeExtraItems.forEach(item => {
+        const inputEl = document.getElementById(`calc_${item}`);
+        if (inputEl) {
+            const count = parseFloat(inputEl.value) || 0;
+            localStorage.setItem(`eco_calc_${item}`, count);
 
-    // Print text nodes
+            totalCo2 += count * itemMetrics[item].co2;
+            totalWater += count * itemMetrics[item].water;
+            totalEnergy += count * itemMetrics[item].energy;
+        }
+    });
+
+    // Write text calculations out inside UI container slots
     document.getElementById('co2Saved').textContent = totalCo2.toFixed(1);
     document.getElementById('waterSaved').textContent = totalWater.toFixed(1);
     document.getElementById('energySaved').textContent = totalEnergy.toFixed(1);
 
-    // Contextual equivalence: 1 day of phone charging is roughly 0.015 kWh
     const phoneDays = Math.floor(totalEnergy / 0.015);
     document.getElementById('funStatement').innerHTML = `💡 Your preserved energy could charge a standard smartphone for <strong>${phoneDays.toLocaleString()}</strong> days!`;
 
-    // Dynamic Chart Scalers (Capped cleanly at 100% boundary limiters)
+    // Dynamic Bar Chart Scaler Engine
     const maxChartBaseline = 50; 
     document.getElementById('barCo2').style.width = Math.min((totalCo2 / maxChartBaseline) * 100, 100) + '%';
     document.getElementById('barWater').style.width = Math.min((totalWater / (maxChartBaseline * 5)) * 100, 100) + '%';
@@ -561,28 +593,37 @@ function calculateImpact() {
 }
 
 function clearCalculator() {
-    // Purge specific storage nodes securely
-    localStorage.removeItem('eco_calcPlastic');
-    localStorage.removeItem('eco_calcAlum');
-    localStorage.removeItem('eco_calcPaper');
+    // Purge memory blocks and active extensions maps entirely
+    localStorage.clear();
+    activeExtraItems = [];
+    
+    // Purge customized user node tree injections
+    document.querySelectorAll('.dynamic-row').forEach(el => el.remove());
 
-    // Restore field levels back to baseline parameters
+    // Reinstate base indicators back to flat values
     document.getElementById('calcPlastic').value = 0;
     document.getElementById('calcAlum').value = 0;
     document.getElementById('calcPaper').value = 0;
 
-    // Recalculate UI states to reflect clear data
     calculateImpact();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    // Restore base layout configurations values
     if (localStorage.getItem('eco_calcPlastic') !== null) document.getElementById('calcPlastic').value = localStorage.getItem('eco_calcPlastic');
     if (localStorage.getItem('eco_calcAlum') !== null) document.getElementById('calcAlum').value = localStorage.getItem('eco_calcAlum');
     if (localStorage.getItem('eco_calcPaper') !== null) document.getElementById('calcPaper').value = localStorage.getItem('eco_calcPaper');
+
+    // Instantiate and rebuild dynamic layout configurations from user cache parameters
+    activeExtraItems.forEach(item => {
+        const savedVal = localStorage.getItem(`eco_calc_${item}`) || 0;
+        createRowDOM(item, savedVal);
+    });
+
     calculateImpact();
 });
 </script>
-    
+
 
         
     </main>
