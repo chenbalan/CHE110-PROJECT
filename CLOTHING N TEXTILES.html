@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Waste Recycling Guide</title>
+    <title>Clothing & Textiles Disposal Guide</title>
     <style>
         :root {
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
             --text-primary: #2d3748;
             --text-secondary: #718096;
-            --ewaste-blue: #1e3a8a;
-            --ewaste-blue-light: #eff6ff;
+            --donation-blue: #0052cc;
+            --donation-blue-light: #eff6ff;
             --border-color: #e2e8f0;
         }
 
@@ -39,7 +39,7 @@
             text-align: center;
         }
 
-        /* Recreating the provided image label layout */
+        /* Recreating the provided visual from image layout */
         .recycle-badge-card {
             border: 2px solid var(--border-color);
             border-radius: 12px;
@@ -58,15 +58,16 @@
         }
 
         .action-button {
-            background-color: #0052cc;
+            background-color: var(--donation-blue);
             color: #ffffff;
             font-size: 16px;
             font-weight: 600;
-            padding: 10px 28px;
+            padding: 12px 28px;
             border-radius: 50px;
             display: inline-block;
             border: none;
             text-decoration: none;
+            line-height: 1.4;
         }
 
         /* Form Styling */
@@ -109,11 +110,11 @@
         }
 
         .zip-input:focus {
-            border-color: var(--ewaste-blue);
+            border-color: var(--donation-blue);
         }
 
         .submit-btn {
-            background-color: #0052cc;
+            background-color: var(--donation-blue);
             color: white;
             border: none;
             border-radius: 8px;
@@ -137,8 +138,8 @@
         }
 
         .result-success {
-            background-color: var(--ewaste-blue-light);
-            color: var(--ewaste-blue);
+            background-color: var(--donation-blue-light);
+            color: var(--donation-blue);
             border: 1px solid #bfdbfe;
         }
 
@@ -166,17 +167,17 @@
 
         .highlight {
             font-weight: bold;
-            color: #0052cc;
+            color: var(--donation-blue);
         }
 
         .tip-box {
-            background-color: var(--ewaste-blue-light);
-            border-left: 4px solid var(--ewaste-blue);
+            background-color: var(--donation-blue-light);
+            border-left: 4px solid var(--donation-blue);
             padding: 15px;
             border-radius: 0 8px 8px 0;
             text-align: left;
             font-size: 14px;
-            color: var(--ewaste-blue);
+            color: var(--donation-blue);
         }
     </style>
 </head>
@@ -185,14 +186,14 @@
     <div class="container">
         <!-- Recreated Visual from Image Layout -->
         <div class="recycle-badge-card">
-            <h1 class="item-title">Electrical waste</h1>
-            <div class="action-button">E-Waste Drop-off Only</div>
+            <h1 class="item-title">Clothing & Textiles</h1>
+            <div class="action-button">Donation / Special<br>Drop-off</div>
         </div>
 
         <!-- Local Rules Lookup Form -->
         <div class="zip-form-container">
-            <h3 class="form-title">Check Local Drop-off Locations</h3>
-            <p class="form-desc">E-waste disposal regulations vary by municipality. Enter your ZIP code to find local authorized electrical waste processing centers.</p>
+            <h3 class="form-title">Find Textile Drop-Off Locations</h3>
+            <p class="form-desc">Textiles should not go in regular trash or standard curbside recycling bins. Enter your ZIP code to find nearby donation boxes or clothing recycling stations.</p>
             <form id="zipForm" onsubmit="checkZip(event)">
                 <div class="form-group">
                     <input 
@@ -210,16 +211,16 @@
         </div>
 
         <!-- Educational Content -->
-        <h2>How to Safely Dispose of Electrical Waste</h2>
+        <h2>How to Properly Dispose of Clothing & Textiles</h2>
         <ul class="steps-list">
-            <li><span class="highlight">Step 1: Keep separate from standard bins.</span> Never toss broken electronics, hardware, cords, or appliances into regular garbage or curbside recycling containers.</li>
-            <li><span class="highlight">Step 2: Strip batteries and loose accessories.</span> Detach reusable batteries, protective structures, or fluid containers before handing over equipment.</li>
-            <li><span class="highlight">Step 3: Organize connecting wires.</span> Bundle miscellaneous charging cables, copper cords, and electrical leads together to simplify secondary sorting.</li>
-            <li><span class="highlight">Step 4: Transport to an e-waste facility.</span> Bring items to a community collection event, a designated municipal depot, or an appliance retail trade-in kiosk.</li>
+            <li><span class="highlight">Step 1: Assess item condition.</span> Clean, wearable garments should be set aside for clothing banks, shelters, or thrift store donations to extend their lifecycle.</li>
+            <li><span class="highlight">Step 2: Prepare unwearable fabrics.</span> Torn, stained, or heavily worn items (such as old sheets, towels, or rags) should still be saved for designated textile recycling systems rather than thrown in the trash.</li>
+            <li><span class="highlight">Step 3: Wash and dry thoroughly.</span> All textiles must be completely clean and dry before collection. Damp fabrics can grow mold, ruining entire sorting piles.</li>
+            <li><span class="highlight">Step 4: Pack and secure collections.</span> Place garments inside robust bags to protect them from weather and moisture damage inside outdoor drop-off dropboxes.</li>
         </ul>
 
         <div class="tip-box">
-            <strong>Why specialized handling?</strong> Electrical equipment contains complex chemical layers, lead circuits, and heavy structural plastics that leak toxins if crushed in landfills, but yield highly valuable raw copper and gold when processed correctly.
+            <strong>Why specialized tracking?</strong> Up to 95% of household textile materials can be recycled, repurposed, or downcycled into industrial insulation, carpet padding, and wiping cloths, avoiding massive landfill waste.
         </div>
     </div>
 
@@ -231,7 +232,7 @@
             
             // Simulating a local database check response
             resultBox.style.display = 'block';
-            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Curbside collection is not available for this material category. Please transport your item to your local municipal hazardous drop-off depot or coordinate with an authorized electrical waste collector.`;
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Standard curbside blue bins do not accept fabrics. Please take your bags to your closest authorized charity drop box, retail take-back counter, or designated solid waste center convenience hub.`;
         }
     </script>
 

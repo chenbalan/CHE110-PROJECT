@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Waste Recycling Guide</title>
+    <title>Coffee Grounds & Tea Bags Composting Guide</title>
     <style>
         :root {
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
             --text-primary: #2d3748;
             --text-secondary: #718096;
-            --ewaste-blue: #1e3a8a;
-            --ewaste-blue-light: #eff6ff;
+            --compost-brown: #8c6d58;
+            --compost-brown-light: #f7f3f0;
             --border-color: #e2e8f0;
         }
 
@@ -39,26 +39,30 @@
             text-align: center;
         }
 
-        /* Recreating the provided image label layout */
+        /* Recreating the provided inline image label layout */
         .recycle-badge-card {
             border: 2px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
             margin-bottom: 30px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
             min-width: 280px;
             background-color: #fff;
+            flex-wrap: wrap;
         }
 
         .item-title {
             font-size: 24px;
             font-weight: 700;
             color: #1a202c;
-            margin: 0 0 16px 0;
+            margin: 0;
         }
 
         .action-button {
-            background-color: #0052cc;
+            background-color: var(--compost-brown);
             color: #ffffff;
             font-size: 16px;
             font-weight: 600;
@@ -109,11 +113,11 @@
         }
 
         .zip-input:focus {
-            border-color: var(--ewaste-blue);
+            border-color: var(--compost-brown);
         }
 
         .submit-btn {
-            background-color: #0052cc;
+            background-color: var(--compost-brown);
             color: white;
             border: none;
             border-radius: 8px;
@@ -125,7 +129,7 @@
         }
 
         .submit-btn:hover {
-            background-color: #0041a3;
+            background-color: #6e5341;
         }
 
         .result-box {
@@ -137,9 +141,9 @@
         }
 
         .result-success {
-            background-color: var(--ewaste-blue-light);
-            color: var(--ewaste-blue);
-            border: 1px solid #bfdbfe;
+            background-color: var(--compost-brown-light);
+            color: #5c4333;
+            border: 1px solid #ebdcd0;
         }
 
         /* Educational Content Section */
@@ -166,17 +170,17 @@
 
         .highlight {
             font-weight: bold;
-            color: #0052cc;
+            color: var(--compost-brown);
         }
 
         .tip-box {
-            background-color: var(--ewaste-blue-light);
-            border-left: 4px solid var(--ewaste-blue);
+            background-color: var(--compost-brown-light);
+            border-left: 4px solid var(--compost-brown);
             padding: 15px;
             border-radius: 0 8px 8px 0;
             text-align: left;
             font-size: 14px;
-            color: var(--ewaste-blue);
+            color: #5c4333;
         }
     </style>
 </head>
@@ -185,14 +189,14 @@
     <div class="container">
         <!-- Recreated Visual from Image Layout -->
         <div class="recycle-badge-card">
-            <h1 class="item-title">Electrical waste</h1>
-            <div class="action-button">E-Waste Drop-off Only</div>
+            <h1 class="item-title">Coffee Grounds & Tea Bags</h1>
+            <div class="action-button">Compost</div>
         </div>
 
         <!-- Local Rules Lookup Form -->
         <div class="zip-form-container">
-            <h3 class="form-title">Check Local Drop-off Locations</h3>
-            <p class="form-desc">E-waste disposal regulations vary by municipality. Enter your ZIP code to find local authorized electrical waste processing centers.</p>
+            <h3 class="form-title">Check Local Composting Rules</h3>
+            <p class="form-desc">Organic disposal options can vary. Enter your ZIP code to verify if your municipality collects food waste curbside or offers neighborhood drop-off points.</p>
             <form id="zipForm" onsubmit="checkZip(event)">
                 <div class="form-group">
                     <input 
@@ -210,16 +214,16 @@
         </div>
 
         <!-- Educational Content -->
-        <h2>How to Safely Dispose of Electrical Waste</h2>
+        <h2>How to Properly Compost Coffee Grounds & Tea Bags</h2>
         <ul class="steps-list">
-            <li><span class="highlight">Step 1: Keep separate from standard bins.</span> Never toss broken electronics, hardware, cords, or appliances into regular garbage or curbside recycling containers.</li>
-            <li><span class="highlight">Step 2: Strip batteries and loose accessories.</span> Detach reusable batteries, protective structures, or fluid containers before handing over equipment.</li>
-            <li><span class="highlight">Step 3: Organize connecting wires.</span> Bundle miscellaneous charging cables, copper cords, and electrical leads together to simplify secondary sorting.</li>
-            <li><span class="highlight">Step 4: Transport to an e-waste facility.</span> Bring items to a community collection event, a designated municipal depot, or an appliance retail trade-in kiosk.</li>
+            <li><span class="highlight">Step 1: Save the paper filters.</span> Unbleached paper coffee filters can go straight into the compost along with the grounds.</li>
+            <li><span class="highlight">Step 2: Check your tea bags.</span> Ensure the tea bags are made of natural fibers (like paper, silk, or hemp) and not plastic mesh. Remove any metal staples or synthetic strings.</li>
+            <li><span class="highlight">Step 3: Balance the moisture.</span> Wet coffee grounds add nitrogen and moisture. Make sure to balance them with dry carbon materials like dry leaves or shredded paper in your pile.</li>
+            <li><span class="highlight">Step 4: Distribute evenly.</span> Avoid dumping thick, compacted layers of dense coffee grounds in one spot; scatter them lightly to help airflow.</li>
         </ul>
 
         <div class="tip-box">
-            <strong>Why specialized handling?</strong> Electrical equipment contains complex chemical layers, lead circuits, and heavy structural plastics that leak toxins if crushed in landfills, but yield highly valuable raw copper and gold when processed correctly.
+            <strong>Compost Multiplier Tip:</strong> Coffee grounds act as a rich nitrogen source ("green" material) despite their dark brown color, helping accelerate soil heat breakdown and attracting earthworms to your pile!
         </div>
     </div>
 
@@ -231,7 +235,7 @@
             
             // Simulating a local database check response
             resultBox.style.display = 'block';
-            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Curbside collection is not available for this material category. Please transport your item to your local municipal hazardous drop-off depot or coordinate with an authorized electrical waste collector.`;
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Organic waste sorting program verified active! Coffee grounds and natural tea filters are fully accepted in your municipal curbside organics container.`;
         }
     </script>
 
