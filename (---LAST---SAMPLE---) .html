@@ -258,6 +258,69 @@
             color: #cfd8dc;
             margin-top: 3rem;
         }
+        /* Card Wrapper Structure */
+.section-card {
+    background: #ffffff;
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.section-card h2 {
+    margin-top: 0;
+    color: var(--recycle-green, #276749);
+    font-size: 20px;
+}
+
+/* Row Alignment */
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.calc-row label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary, #2d3748);
+}
+
+/* Input Nodes */
+.calc-row input[type="number"] {
+    width: 80px;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: 6px;
+    font-size: 15px;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.calc-row input[type="number"]:focus {
+    border-color: var(--recycle-green, #276749);
+}
+
+/* Dynamic Live Metrics Output Box */
+.results-box {
+    margin-top: 20px;
+    background-color: var(--recycle-green-light, #e6fffa);
+    border-left: 4px solid var(--recycle-green, #276749);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 15px;
+    color: #1a202c;
+    line-height: 1.8;
+}
+
+.stat-highlight {
+    font-weight: 700;
+    color: var(--recycle-green, #276749);
+}
+
     </style>
 </head>
 <body>
@@ -316,28 +379,64 @@
 
         <!-- Feature 2: Eco-Impact Calculator -->
         <section class="section-card">
-            <h2> Your Eco-Impact Calculator</h2>
-            <p>Enter the estimated count of items you recycle weekly to view your collective environmental savings:</p>
-            
-            <div class="calc-row">
-                <label>Plastic Bottles:</label>
-                <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
-            </div>
-            <div class="calc-row">
-                <label>Aluminium Cans:</label>
-                <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
-            </div>
-            <div class="calc-row">
-                <label>Cardboard Boxes / Paper items:</label>
-                <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
-            </div>
+    <h2>Your Eco-Impact Calculator</h2>
+    <p>Enter the estimated count of items you recycle weekly to view your collective environmental savings:</p>
+    
+    <div class="calc-row">
+        <label for="calcPlastic">Plastic Bottles:</label>
+        <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
+    </div>
+    <div class="calc-row">
+        <label for="calcAlum">Aluminium Cans:</label>
+        <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
+    </div>
+    <div class="calc-row">
+        <label for="calcPaper">Cardboard Boxes / Paper items:</label>
+        <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
+    </div>
 
-            <div class="results-box">
-                Weekly Environmental Savings Estimate:<br>
-                🌱 CO₂ Emissions Prevented: <span id="co2Saved">0</span> kg<br>
-                💧 Water Conserved: <span id="waterSaved">0</span> Litres
-            </div>
-        </section>
+    <div class="results-box">
+        <strong>Weekly Environmental Savings Estimate:</strong><br>
+        🌱 CO₂ Emissions Prevented: <span id="co2Saved" class="stat-highlight">0</span> kg<br>
+        💧 Water Conserved: <span id="waterSaved" class="stat-highlight">0</span> Litres
+    </div>
+</section>
+
+<script>
+function calculateImpact() {
+    // 1. Fetch values safely from input fields, fallback to 0 if empty
+    const plasticCount = parseFloat(document.getElementById('calcPlastic').value) || 0;
+    const alumCount = parseFloat(document.getElementById('calcAlum').value) || 0;
+    const paperCount = parseFloat(document.getElementById('calcPaper').value) || 0;
+
+    // 2. Define standard environmental conversion metrics per unit
+    // Plastic Bottle savings metrics
+    const plasticCo2PerUnit = 0.05; 
+    const plasticWaterPerUnit = 3.0;
+
+    // Aluminium Can savings metrics
+    const alumCo2PerUnit = 0.09;
+    const alumWaterPerUnit = 1.5;
+
+    // Cardboard / Paper savings metrics
+    const paperCo2PerUnit = 0.15;
+    const paperWaterPerUnit = 5.0;
+
+    // 3. Compute running product totals
+    const totalCo2 = (plasticCount * plasticCo2PerUnit) + 
+                     (alumCount * alumCo2PerUnit) + 
+                     (paperCount * paperCo2PerUnit);
+
+    const totalWater = (plasticCount * plasticWaterPerUnit) + 
+                       (alumCount * alumWaterPerUnit) + 
+                       (paperCount * paperWaterPerUnit);
+
+    // 4. Update the DOM displays formatted to 1 decimal place max for clean parsing
+    document.getElementById('co2Saved').textContent = totalCo2.toFixed(1);
+    document.getElementById('waterSaved').textContent = totalWater.toFixed(1);
+}
+</script>
+
 
         
     </main>
