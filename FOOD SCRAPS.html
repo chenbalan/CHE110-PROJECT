@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Scraps Composting Guide</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --compost-brown: #8c6d58;
+            --compost-brown-light: #f7f3f0;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Recreating the provided image label layout */
+        .recycle-badge-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            min-width: 280px;
+            background-color: #fff;
+        }
+
+        .item-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .action-button {
+            background-color: #8c6d58;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+        }
+
+        /* Form Styling */
+        .zip-form-container {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .zip-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .zip-input:focus {
+            border-color: var(--compost-brown);
+        }
+
+        .submit-btn {
+            background-color: var(--compost-brown);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #6e5341;
+        }
+
+        .result-box {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .result-success {
+            background-color: var(--compost-brown-light);
+            color: #5c4333;
+            border: 1px solid #ebdcd0;
+        }
+
+        /* Educational Content Section */
+        h2 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .steps-list {
+            text-align: left;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--compost-brown);
+        }
+
+        .tip-box {
+            background-color: var(--compost-brown-light);
+            border-left: 4px solid var(--compost-brown);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #5c4333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Recreated Visual from Image Layout -->
+        <div class="recycle-badge-card">
+            <h1 class="item-title">Food Scraps</h1>
+            <div class="action-button">Compost</div>
+        </div>
+
+        <!-- Local Rules Lookup Form -->
+        <div class="zip-form-container">
+            <h3 class="form-title">Check Local Composting Rules</h3>
+            <p class="form-desc">Rules vary heavily by city. Enter your ZIP code to see if food scraps are accepted in municipal green bins or neighborhood drop-offs.</p>
+            <form id="zipForm" onsubmit="checkZip(event)">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="zipcode" 
+                        class="zip-input" 
+                        placeholder="Enter 5-digit ZIP code" 
+                        pattern="[0-9]{5}" 
+                        required
+                    >
+                    <button type="submit" class="submit-btn">Check Status</button>
+                </div>
+            </form>
+            <div id="resultBox" class="result-box result-success"></div>
+        </div>
+
+        <!-- Educational Content -->
+        <h2>How to Properly Compost Your Food Scraps</h2>
+        <ul class="steps-list">
+            <li><span class="highlight">Step 1: Separate correctly.</span> Collect fruit peels, vegetable scraps, coffee grounds, and eggshells.</li>
+            <li><span class="highlight">Step 2: Know what to exclude.</span> Keep out meat, dairy, bones, fats, and oils unless your city specifically notes they accept them in high-heat industrial systems.</li>
+            <li><span class="highlight">Step 3: Remove stickers and ties.</span> Always peel off plastic price stickers from fruit skins and remove rubber bands.</li>
+            <li><span class="highlight">Step 4: Use a breathable container.</span> Store your scraps in a small countertop bin lined with a certified compostable bag or freeze them to eliminate odors entirely before disposal.</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>Why compost food?</strong> When food decays in a sealed landfill, it produces harmful methane gas. Composting allows it to break down cleanly with oxygen, turning waste into nutrient-rich soil.
+        </div>
+    </div>
+
+    <script>
+        function checkZip(event) {
+            event.preventDefault();
+            const zip = document.getElementById('zipcode').value;
+            const resultBox = document.getElementById('resultBox');
+            
+            // Simulating a local database check response
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Organics/Food Waste program is active! You can include all vegetative scraps in your organic green bin. Keep meat and dairy out.`;
+        }
+    </script>
+
+</body>
+</html>
