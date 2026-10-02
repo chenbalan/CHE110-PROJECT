@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shredded Plain Paper & Napkins Composting Guide</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --compost-brown: #8c6d58;
+            --compost-brown-light: #f7f3f0;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Recreating the provided inline image label layout */
+        .recycle-badge-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            min-width: 280px;
+            background-color: #fff;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .action-button {
+            background-color: var(--compost-brown);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+        }
+
+        /* Form Styling */
+        .zip-form-container {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .zip-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .zip-input:focus {
+            border-color: var(--compost-brown);
+        }
+
+        .submit-btn {
+            background-color: var(--compost-brown);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #6e5341;
+        }
+
+        .result-box {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .result-success {
+            background-color: var(--compost-brown-light);
+            color: #5c4333;
+            border: 1px solid #ebdcd0;
+        }
+
+        /* Educational Content Section */
+        h2 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .steps-list {
+            text-align: left;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--compost-brown);
+        }
+
+        .tip-box {
+            background-color: var(--compost-brown-light);
+            border-left: 4px solid var(--compost-brown);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #5c4333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Recreated Visual from Image Layout -->
+        <div class="recycle-badge-card">
+            <h1 class="item-title">Shredded Plain Paper & Napkins</h1>
+            <div class="action-button">Compost</div>
+        </div>
+
+        <!-- Local Rules Lookup Form -->
+        <div class="zip-form-container">
+            <h3 class="form-title">Check Local Composting Rules</h3>
+            <p class="form-desc">Composting programs vary by community. Enter your ZIP code to verify if shredded paper and paper napkins are accepted in your local green bin container.</p>
+            <form id="zipForm" onsubmit="checkZip(event)">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="zipcode" 
+                        class="zip-input" 
+                        placeholder="Enter 5-digit ZIP code" 
+                        pattern="[0-9]{5}" 
+                        required
+                    >
+                    <button type="submit" class="submit-btn">Check Status</button>
+                </div>
+            </form>
+            <div id="resultBox" class="result-box result-success"></div>
+        </div>
+
+        <!-- Educational Content -->
+        <h2>How to Properly Compost Shredded Paper & Napkins</h2>
+        <ul class="steps-list">
+            <li><span class="highlight">Step 1: Verify the paper type.</span> Only compost matte, non-glossy plain printer paper, clean napkins, and unbleached paper towels. Avoid glossy inserts or colored inks.</li>
+            <li><span class="highlight">Step 2: Watch out for hidden plastics.</span> Ensure napkins do not contain synthetic fibers or plastic decorations, and verify that envelopes do not have plastic address windows.</li>
+            <li><span class="highlight">Step 3: Check for heavy chemical contamination.</span> Napkins or towels soaked in heavy industrial grease, cleaning chemicals, or motor oil must go in the regular trash.</li>
+            <li><span class="highlight">Step 4: Scatter and aerate.</span> Shredded paper clumps easily when wet, blocking oxygen paths. Scatter it lightly across your bin and mix it well with damp vegetative kitchen waste.</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>Carbon Booster Tip:</strong> Shredded paper and plain napkins act as excellent carbon-rich ("brown") materials. They absorb excess moisture from vegetable scraps and keep home compost bins structurally balanced and odor-free!
+        </div>
+    </div>
+
+    <script>
+        function checkZip(event) {
+            event.preventDefault();
+            const zip = document.getElementById('zipcode').value;
+            const resultBox = document.getElementById('resultBox');
+            
+            // Simulating a local database check response
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Organics program verified active! Plain shredded paper shreds and food-soiled unbleached napkins are accepted in your residential curbside organic waste containers.`;
+        }
+    </script>
+
+</body>
+</html>

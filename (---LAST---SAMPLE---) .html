@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recycling Guide & Tracker</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #81c784;
+            --accent-color: #e8f5e9;
+            --text-color: #2c3e50;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: -2rem auto 3rem;
+            padding: 0 1rem;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Search Feature */
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            box-sizing: border-box;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .item-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: white;
+            margin-top: 0.5rem;
+        }
+
+        .badge.recycle { background-color: #2e7d32; }
+        .badge.compost { background-color: #8d6e63; }
+        .badge.trash { background-color: #757575; }
+        .badge.special { background-color: #0062c5; }
+
+        /* Calculator Feature */
+        .calc-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .calc-row input {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .results-box {
+            background: var(--accent-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Trivia Game Feature */
+        .trivia-container {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn:hover { background-color: #1b5e20; }
+        
+        .feedback { margin-top: 1rem; font-weight: bold; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #212121;
+            color: #e0e0e0;
+        }
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #81c784;
+            --accent-color: #f1f8e9;
+            --text-color: #333333;
+            --bg-color: #f9fbf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #263238;
+            color: #cfd8dc;
+            margin-top: 3rem;
+        }
+        /* Card Container Base Layout */
+.section-card {
+    background: #ffffff;
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 30px;
+    text-align: left;
+}
+.section-card h2 { margin-top: 0; color: var(--recycle-green, #276749); font-size: 20px; }
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.calc-row label { font-weight: 600; font-size: 14px; color: var(--text-primary, #2d3748); }
+
+.calc-row input[type="number"] {
+    width: 80px;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color, #e2e8f0);
+    border-radius: 6px;
+    font-size: 15px;
+    text-align: right;
+    outline: none;
+}
+.calc-row input[type="number"]:focus { border-color: var(--recycle-green, #276749); }
+
+/* NEW: Input Wrapper + Delete Action Configurations */
+.input-actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.remove-row-btn {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+.remove-row-btn:hover { color: #e53e3e; }
+
+/* NEW: Custom Dynamic Add Item Controls Layout */
+.add-item-toolbar {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed #e2e8f0;
+}
+.add-item-toolbar select {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    background-color: #fff;
+}
+.add-item-toolbar .add-btn {
+    background-color: var(--recycle-green, #276749);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+.add-item-toolbar .add-btn:hover { background-color: #1e562f; }
+
+/* Enhanced Visual Progress Graph Visuals */
+.chart-container { margin-top: 28px; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(148, 163, 184, 0.06); }
+.chart-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 1.2px; margin-bottom: 20px; }
+.chart-row { display: flex; align-items: center; margin-bottom: 18px; }
+.chart-label { width: 120px; font-size: 14px; font-weight: 600; color: #334155; display: flex; align-items: center; gap: 6px; }
+.bar-track { flex: 1; background: #f1f5f9; height: 14px; border-radius: 100px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; width: 0%; border-radius: 100px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.co2-bar { background: linear-gradient(90deg, #34d399, #10b981); }
+.water-bar { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+.energy-bar { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+
+/* Dynamic Summary and Conversions Blocks */
+.results-box { margin-top: 20px; background-color: var(--recycle-green-light, #e6fffa); border-left: 4px solid var(--recycle-green, #276749); padding: 16px; border-radius: 0 8px 8px 0; font-size: 15px; color: #1a202c; line-height: 1.8; }
+.stat-highlight { font-weight: 700; color: var(--recycle-green, #276749); }
+.fun-statement { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 14px; color: #4a5568; }
+
+/* Control Toolbar Configuration */
+.control-toolbar { margin-top: 16px; display: flex; justify-content: flex-end; }
+.reset-btn { background-color: transparent; color: #e53e3e; border: 1px solid #e53e3e; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.reset-btn:hover { background-color: #fff5f5; }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="badge"><span>🌱</span> Sustainability Engine Active</div>
+        <h1>Smart Recycling Guide</h1>
+        <p>Your Interactive Assistant for a Cleaner Planet</p>
+    </header>
+    <section class="section-card">
+    <h2>Instant Item Directory</h2>
+    <p>Not sure where it goes? Type an item below to find its correct disposal bin:</p>
+    
+    <!-- 1. Search input element linked to real-time keyup script monitoring -->
+    <input 
+        type="text" 
+        id="searchInput" 
+        class="search-box" 
+        placeholder="Search items (e.g., plastic bottle, banana peel, cardboard)..." 
+        onkeyup="filterItems()"
+    >
+    
+    <!-- 2. Responsive display grid container for individual item data points -->
+    <div class="item-grid" id="itemGrid">
+        <div class="item-card" data-name="plastic bottle water jug container" onclick="window.location.href='PLASTIC BOTTLE.html'">
+            <strong>Plastic Bottle</strong>
+            <div class="badge recycle">Recycle (Rinse first)</div>
+        </div>
+        <div class="item-card" data-name="cardboard paper box delivery package" onclick="window.location.href='CARDBOARD BOX.html'">
+            <strong>Cardboard Box</strong>
+            <div class="badge recycle">Recycle (Flatten)</div>
+        </div>
+        <div class="item-card" data-name="banana peel apple core food waste scraps" onclick="window.location.href='FOOD SCRAPS.html'">
+            <strong>Food Scraps</strong>
+            <div class="badge compost">Compost</div>
+        </div>
+        <div class="item-card" data-name="glass bottle jar container window" onclick="window.location.href='GLASS JAR.html'">
+            <strong>Glass Jar</strong>
+            <div class="badge recycle">Recycle</div>
+        </div>
+        <div class="item-card" data-name="aluminum steel soda tin can packaging" onclick="window.location.href='SODA CAN.html'">
+            <strong>Soda Can</strong>
+            <div class="badge recycle">Recycle</div>
+        </div>
+        <div class="item-card" data-name="styrofoam coffee cup takeout container packaging" onclick="window.location.href='STYROFOAM CUP.html'">
+            <strong>Styrofoam Cup</strong>
+            <div class="badge trash">Trash / Landfill</div>
+        </div>
+        <div class="item-card" data-name="plastic bag wrap bubble film grocery sack" onclick="window.location.href='PLASTIC GROCERY BAG.html'">
+            <strong>Plastic Grocery Bag</strong>
+            <div class="badge trash">Store Drop-off Only</div>
+        </div>
+        <div class="item-card" data-name="light bulb incandescent led fluorescent" onclick="window.location.href='LIGHT BULB.html'">
+            <strong>Light Bulb</strong>
+            <div class="badge trash">Hazardous Waste / Special</div>
+        </div>
+        <div class="item-card" data-name="electrical electronic waste e-waste phone computer cable wire appliance battery charger gadget" onclick="window.location.href='ELECTRICAL WASTE.html'">
+            <strong>Electrical waste</strong>
+            <div class="badge special">E-Waste Drop-off Only</div>
+        </div>
+        <div class="item-card" data-name="coffee grounds filters tea bags leaves breakfast used organic scraps" onclick="window.location.href='COFFEE N TEA.html'">
+            <strong>Coffee Grounds & Tea Bags</strong>
+            <div class="badge compost">Compost</div>
+        </div>
+        <div class="item-card" data-name="clothes apparel fabric denim shirt pants shoes textiles sheet donation fabric" onclick="window.location.href='CLOTHING N TEXTILES.html'">
+            <strong>Clothing & Textiles</strong>
+            <div class="badge special">Donation / Special Drop-off</div>
+        </div>
+        <div class="item-card" data-name="shredded plain paper tissues napkins brown towels brown waste paper compostable unbleached cellulose" onclick="window.location.href='PAPER N NAPKINS.html'">
+            <strong>Shredded Plain Paper & Napkins</strong>
+            <div class="badge compost">Compost</div>
+        </div>
+
+        <!-- NEW: Dynamic Fallback element visible when zero inventory tags correspond -->
+        <div class="no-results" id="noResultsNotice">✕ No matching items found in directory. Try another keyword!</div>
+    </div>
+</section>
+
+<!-- 3. Embedded Directory Styling Rules -->
+<style>
+    .section-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 32px;
+        margin-top: 30px;
+        text-align: left;
+    }
+    .section-card h2 { margin-top: 0; color: #276749; font-size: 22px; font-weight: 700; }
+    .section-card p { color: #64748b; margin-bottom: 20px; font-size: 15px; }
+
+    /* Polished Input Search Element CSS */
+    .search-box {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 50px;
+        outline: none;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+        margin-bottom: 28px;
+        background-color: #f8fafc;
+    }
+    .search-box:focus {
+        border-color: #276749;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(39, 103, 73, 0.1);
+    }
+
+    /* Auto-scaling Fluid CSS Grid Layout layout */
+    .item-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    /* Geometric Directory Block Cards */
+    .item-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 130px;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .item-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(148, 163, 184, 0.12);
+        border-color: #cbd5e1;
+    }
+    .item-card strong { font-size: 16px; color: #1e293b; margin-bottom: 12px; }
+
+    /* Visual Badge Color Configurations matching your specifications */
+    .badge {
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 18px;
+        border-radius: 50px;
+        display: inline-block;
+    }
+    .badge.recycle { background-color: #276749; }
+    .badge.compost { background-color: #8c6d58; }
+    .badge.special { background-color: #718096; }
+    .badge.trash   { background-color: #4a5568; }
+
+    /* Zero Matches State Banner Design */
+    .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #64748b;
+        padding: 40px;
+        font-size: 15px;
+        background-color: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        border-radius: 12px;
+        display: none;
+    }
+</style>
+
+<!-- 4. Active Text-Parsing JavaScript Filtering Script -->
+<script>
+function filterItems() {
+    // Collect character entries, trim trailing space blocks, and downcase characters
+    const searchString = document.getElementById('searchInput').value.trim().toLowerCase();
+    
+    // Select the set of card elements inside our tracking layer list
+    const catalogCards = document.getElementsByClassName('item-card');
+    const warningLabel = document.getElementById('noResultsNotice');
+    let dynamicMatchCount = 0;
+
+    // Evaluate array entries mapping attribute text contents
+    for (let i = 0; i < catalogCards.length; i++) {
+        const metadataFilter = catalogCards[i].getAttribute('data-name').toLowerCase();
+        
+        // Execute substring verification checklist routine
+        if (metadataFilter.includes(searchString)) {
+            catalogCards[i].style.display = "flex"; // Reinstate block elements layout structure
+            dynamicMatchCount++;
+        } else {
+            catalogCards[i].style.display = "none"; // Hide non-matching matrix card rows safely
+        }
+    }
+
+    // Toggle active display boundaries if no records match criteria terms
+    if (dynamicMatchCount === 0) {
+        warningLabel.style.display = "block";
+    } else {
+        warningLabel.style.display = "none";
+    }
+}
+</script>
+
+    
+
+        <!-- Feature 2: Eco-Impact Calculator -->
+        <section class="section-card">
+    <h2>Your Eco-Impact Calculator</h2>
+    <p>Enter the estimated count of items you recycle weekly to view your collective environmental savings:</p>
+    
+    <!-- Container for dynamic calculation rows -->
+    <div id="dynamicCalcRows">
+        <div class="calc-row" data-item="plastic">
+            <label for="calcPlastic">Plastic Bottles:</label>
+            <input type="number" id="calcPlastic" value="0" min="0" oninput="calculateImpact()">
+        </div>
+        <div class="calc-row" data-item="alum">
+            <label for="calcAlum">Aluminium Cans:</label>
+            <input type="number" id="calcAlum" value="0" min="0" oninput="calculateImpact()">
+        </div>
+        <div class="calc-row" data-item="paper">
+            <label for="calcPaper">Cardboard Boxes / Paper items:</label>
+            <input type="number" id="calcPaper" value="0" min="0" oninput="calculateImpact()">
+        </div>
+    </div>
+
+    <!-- NEW: Item Selector Toolbar Component -->
+    <div class="add-item-toolbar">
+        <select id="itemSelector">
+            <option value="" disabled selected>Choose an item to add...</option>
+            <option value="glass">Glass Jars</option>
+            <option value="ewaste">Electrical / E-Waste</option>
+            <option value="food">Food Scraps (Compost)</option>
+            <option value="lightbulb">Light Bulbs</option>
+        </select>
+        <button type="button" class="add-btn" onclick="addNewCalculatorRow()">+ Add Item</button>
+    </div>
+
+    <!-- Live Performance Visualizer (Bar Graph) -->
+    <div class="chart-container">
+        <div class="chart-title">Visualized Environmental Impact</div>
+        <div class="chart-row">
+            <span class="chart-label">🌱 CO₂ (kg):</span>
+            <div class="bar-track">
+                <div id="barCo2" class="bar-fill co2-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+        <div class="chart-row">
+            <span class="chart-label">💧 Water (L):</span>
+            <div class="bar-track">
+                <div id="barWater" class="bar-fill water-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+        <div class="chart-row">
+            <span class="chart-label">⚡ Energy (kWh):</span>
+            <div class="bar-track">
+                <div id="barEnergy" class="bar-fill energy-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-box">
+        <strong>Weekly Environmental Savings Estimate:</strong><br>
+        🌱 CO₂ Emissions Prevented: <span id="co2Saved" class="stat-highlight">0</span> kg<br>
+        💧 Water Conserved: <span id="waterSaved" class="stat-highlight">0</span> Litres<br>
+        ⚡ Electricity Preserved: <span id="energySaved" class="stat-highlight">0</span> kWh
+        
+        <div class="fun-statement" id="funStatement">
+            💡 Your preserved energy could charge a standard smartphone for <strong>0</strong> days!
+        </div>
+    </div>
+
+    <!-- Action Controller Toolbar -->
+    <div class="control-toolbar">
+        <button type="button" class="reset-btn" onclick="clearCalculator()">Wipe Clear & Reset Cache</button>
+    </div>
+</section>
+
+<script>
+// Environmental multipliers database lookup object
+const itemMetrics = {
+    plastic:  { co2: 0.05, water: 3.0, energy: 0.4 },
+    alum:     { co2: 0.09, water: 1.5, energy: 0.6 },
+    paper:    { co2: 0.15, water: 5.0, energy: 0.3 },
+    glass:    { co2: 0.08, water: 2.0, energy: 0.25 },
+    ewaste:   { co2: 0.45, water: 8.0, energy: 1.5 },
+    food:     { co2: 0.12, water: 0.5, energy: 0.1 },
+    lightbulb:{ co2: 0.20, water: 1.0, energy: 0.5 }
+};
+
+// Tracks which extra items are currently visible in the DOM
+let activeExtraItems = JSON.parse(localStorage.getItem('eco_activeExtras')) || [];
+
+function addNewCalculatorRow() {
+    const selector = document.getElementById('itemSelector');
+    const selectedKey = selector.value;
+    if (!selectedKey) return;
+
+    // Prevent duplicate rows from being added
+    if (document.querySelector(`.calc-row[data-item="${selectedKey}"]`)) {
+        alert("This item has already been added to your calculator list!");
+        return;
+    }
+
+    createRowDOM(selectedKey, 0);
+    activeExtraItems.push(selectedKey);
+    localStorage.setItem('eco_activeExtras', JSON.stringify(activeExtraItems));
+    
+    // Reset selection option back to prompt state
+    selector.value = "";
+    calculateImpact();
+}
+
+function createRowDOM(key, savedValue) {
+    const parentContainer = document.getElementById('dynamicCalcRows');
+    const labelNames = { glass: "Glass Jars:", ewaste: "Electrical / E-Waste:", food: "Food Scraps:", lightbulb: "Light Bulbs:" };
+
+    const row = document.createElement('div');
+    row.className = 'calc-row dynamic-row';
+    row.setAttribute('data-item', key);
+
+    row.innerHTML = `
+        <label for="calc_${key}">${labelNames[key]}</label>
+        <div class="input-actions-wrapper">
+            <input type="number" id="calc_${key}" value="${savedValue}" min="0" oninput="calculateImpact()">
+            <button type="button" class="remove-row-btn" onclick="removeCalculatorRow('${key}')">✕</button>
+        </div>
+    `;
+    parentContainer.appendChild(row);
+}
+
+function removeCalculatorRow(key) {
+    const row = document.querySelector(`.calc-row[data-item="${key}"]`);
+    if (row) row.remove();
+
+    activeExtraItems = activeExtraItems.filter(item => item !== key);
+    localStorage.setItem('eco_activeExtras', JSON.stringify(activeExtraItems));
+    localStorage.removeItem(`eco_calc_${key}`);
+
+    calculateImpact();
+}
+
+function calculateImpact() {
+    let totalCo2 = 0, totalWater = 0, totalEnergy = 0;
+
+    // Standard base rows tracking loop
+    const baseItems = ['plastic', 'alum', 'paper'];
+    baseItems.forEach(item => {
+        const id = 'calc' + item.charAt(0).toUpperCase() + item.slice(1);
+        const count = parseFloat(document.getElementById(id).value) || 0;
+        localStorage.setItem(`eco_${id}`, count);
+
+        totalCo2 += count * itemMetrics[item].co2;
+        totalWater += count * itemMetrics[item].water;
+        totalEnergy += count * itemMetrics[item].energy;
+    });
+
+    // Dynamic expanded user items loops
+    activeExtraItems.forEach(item => {
+        const inputEl = document.getElementById(`calc_${item}`);
+        if (inputEl) {
+            const count = parseFloat(inputEl.value) || 0;
+            localStorage.setItem(`eco_calc_${item}`, count);
+
+            totalCo2 += count * itemMetrics[item].co2;
+            totalWater += count * itemMetrics[item].water;
+            totalEnergy += count * itemMetrics[item].energy;
+        }
+    });
+
+    // Write text calculations out inside UI container slots
+    document.getElementById('co2Saved').textContent = totalCo2.toFixed(1);
+    document.getElementById('waterSaved').textContent = totalWater.toFixed(1);
+    document.getElementById('energySaved').textContent = totalEnergy.toFixed(1);
+
+    const phoneDays = Math.floor(totalEnergy / 0.015);
+    document.getElementById('funStatement').innerHTML = `💡 Your preserved energy could charge a standard smartphone for <strong>${phoneDays.toLocaleString()}</strong> days!`;
+
+    // Dynamic Bar Chart Scaler Engine
+    const maxChartBaseline = 50; 
+    document.getElementById('barCo2').style.width = Math.min((totalCo2 / maxChartBaseline) * 100, 100) + '%';
+    document.getElementById('barWater').style.width = Math.min((totalWater / (maxChartBaseline * 5)) * 100, 100) + '%';
+    document.getElementById('barEnergy').style.width = Math.min((totalEnergy / maxChartBaseline) * 100, 100) + '%';
+}
+
+function clearCalculator() {
+    // Purge memory blocks and active extensions maps entirely
+    localStorage.clear();
+    activeExtraItems = [];
+    
+    // Purge customized user node tree injections
+    document.querySelectorAll('.dynamic-row').forEach(el => el.remove());
+
+    // Reinstate base indicators back to flat values
+    document.getElementById('calcPlastic').value = 0;
+    document.getElementById('calcAlum').value = 0;
+    document.getElementById('calcPaper').value = 0;
+
+    calculateImpact();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Restore base layout configurations values
+    if (localStorage.getItem('eco_calcPlastic') !== null) document.getElementById('calcPlastic').value = localStorage.getItem('eco_calcPlastic');
+    if (localStorage.getItem('eco_calcAlum') !== null) document.getElementById('calcAlum').value = localStorage.getItem('eco_calcAlum');
+    if (localStorage.getItem('eco_calcPaper') !== null) document.getElementById('calcPaper').value = localStorage.getItem('eco_calcPaper');
+
+    // Instantiate and rebuild dynamic layout configurations from user cache parameters
+    activeExtraItems.forEach(item => {
+        const savedVal = localStorage.getItem(`eco_calc_${item}`) || 0;
+        createRowDOM(item, savedVal);
+    });
+
+    calculateImpact();
+});
+</script>
+
+
+        
+    </main>
+
+    
+
+    <main>
+        <section>
+            <h2>How Can We Help?</h2>
+            <p>The waste that we create has to be carefully controlled to ensure it does not harm our environment and public health. Adopting smart recycling habits is a simple yet powerful step toward a sustainable future.</p>
+        </section>
+
+        <section>
+            <h2>Core Principles</h2>
+            <div class="guide-grid">
+                <div class="card">
+                    <h3>What is Garbage?</h3>
+                    <p>Unwanted or discarded materials resulting from human activities that require proper segregation and disposal management.</p>
+                </div>
+                <div class="card">
+                    <h3>Reduce, Reuse & Recycle</h3>
+                    <p><strong>Reduce</strong> consumption, <strong>Reuse</strong> items creatively, and <strong>Recycle</strong> materials to give them a second life.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Community & Action Plan</h2>
+            <ul>
+                <li><strong>Kids Club Initiatives:</strong> Engaging youth in environmental awareness.
+                    <ol>
+                        <li>Weekly Eco-Activities and clean-up drives.</li>
+                        <li>Interactive learning via Recycle City models.</li>
+                    </ol>
+                </li>
+                <li><strong>Proper Material Sorting:</strong> Separating paper, plastics, glass, and organic waste.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Smart Recycling Guide. Contact us to become an active member!</p>
+    </footer>
+
+    <script>
+        // Search Filter Logic
+        function filterItems() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('item-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Impact Calculator Logic
+        function calculateImpact() {
+            let plastic = parseInt(document.getElementById('calcPlastic').value) || 0;
+            let alum = parseInt(document.getElementById('calcAlum').value) || 0;

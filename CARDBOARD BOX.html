@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardboard Box Recycling Guide</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --recycle-green: #276749;
+            --recycle-green-light: #e6fffa;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Recreating the provided image label */
+        .recycle-badge-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: inline-block;
+            min-width: 280px;
+            background-color: #fff;
+        }
+
+        .item-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0 0 16px 0;
+        }
+
+        .action-button {
+            background-color: #2b7a43;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+        }
+
+        /* Form Styling */
+        .zip-form-container {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .zip-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .zip-input:focus {
+            border-color: #2b7a43;
+        }
+
+        .submit-btn {
+            background-color: #2b7a43;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1e562f;
+        }
+
+        .result-box {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .result-success {
+            background-color: var(--recycle-green-light);
+            color: var(--recycle-green);
+            border: 1px solid #b2f5ea;
+        }
+
+        /* Educational Content Section */
+        h2 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .steps-list {
+            text-align: left;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #2b7a43;
+        }
+
+        .tip-box {
+            background-color: var(--recycle-green-light);
+            border-left: 4px solid var(--recycle-green);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 14px;
+            color: var(--recycle-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Recreated Visual from Image -->
+        <div class="recycle-badge-card">
+            <h1 class="item-title">Cardboard Box</h1>
+            <div class="action-button">Recycle (Flatten)</div>
+        </div>
+
+        <!-- Local Rules Lookup Form -->
+        <div class="zip-form-container">
+            <h3 class="form-title">Check Local Recycling Rules</h3>
+            <p class="form-desc">Rules vary by location. Enter your ZIP code to see if cardboard boxes are accepted curbside in your area.</p>
+            <form id="zipForm" onsubmit="checkZip(event)">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="zipcode" 
+                        class="zip-input" 
+                        placeholder="Enter 5-digit ZIP code" 
+                        pattern="[0-9]{5}" 
+                        required
+                    >
+                    <button type="submit" class="submit-btn">Check Status</button>
+                </div>
+            </form>
+            <div id="resultBox" class="result-box result-success"></div>
+        </div>
+
+        <!-- Educational Content -->
+        <h2>How to Properly Recycle Your Cardboard Boxes</h2>
+        <ul class="steps-list">
+            <li><span class="highlight">Step 1: Empty completely.</span> Remove all plastic wrap, packing peanuts, bubble wrap, and styrofoam inserts.</li>
+            <li><span class="highlight">Step 2: Remove excess tape.</span> Pull off large strips of heavy plastic shipping tape or shipping labels if required locally.</li>
+            <li><span class="highlight">Step 3: Flatten entirely.</span> Break down the boxes flat by cutting or opening the bottom tape seams to save sorting truck space.</li>
+            <li><span class="highlight">Step 4: Keep it dry.</span> Make sure the cardboard does not get wet from grease or rain, as wet fibers cannot be processed.</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>Why flatten?</strong> Unflattened boxes take up immense amounts of space in recycling trucks and sorting bins, making collection inefficient and messy.
+        </div>
+    </div>
+
+    <script>
+        function checkZip(event) {
+            event.preventDefault();
+            const zip = document.getElementById('zipcode').value;
+            const resultBox = document.getElementById('resultBox');
+            
+            // Simulating a local database check response
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Corrugated cardboard boxes are accepted for curbside recycling in your zone. Please make sure they are flat and dry!`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Bulb Disposal Guide</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --hazard-grey: #718096;
+            --hazard-grey-dark: #4a5568;
+            --hazard-orange: #dd6b20;
+            --hazard-orange-light: #fffaf0;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Recreating the provided image label layout */
+        .recycle-badge-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: inline-block;
+            min-width: 280px;
+            background-color: #fff;
+        }
+
+        .item-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0 0 16px 0;
+        }
+
+        .action-button {
+            background-color: #718096;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+        }
+
+        /* Form Styling */
+        .zip-form-container {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .zip-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .zip-input:focus {
+            border-color: var(--hazard-grey);
+        }
+
+        .submit-btn {
+            background-color: var(--hazard-grey);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--hazard-grey-dark);
+        }
+
+        .result-box {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .result-success {
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Educational Content Section */
+        h2 {
+            font-size: 20px;
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .steps-list {
+            text-align: left;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--hazard-grey-dark);
+        }
+
+        .tip-box {
+            background-color: var(--hazard-orange-light);
+            border-left: 4px solid var(--hazard-orange);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 14px;
+            color: var(--hazard-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Recreated Visual from Image Layout -->
+        <div class="recycle-badge-card">
+            <h1 class="item-title">Light Bulb</h1>
+            <div class="action-button">Hazardous Waste / Special</div>
+        </div>
+
+        <!-- Local Rules Lookup Form -->
+        <div class="zip-form-container">
+            <h3 class="form-title">Find Special Collection Sites</h3>
+            <p class="form-desc">Many bulbs contain toxic elements and cannot go into regular trash or recycling bins. Enter your ZIP code to check local collection protocols.</p>
+            <form id="zipForm" onsubmit="checkZip(event)">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="zipcode" 
+                        class="zip-input" 
+                        placeholder="Enter 5-digit ZIP code" 
+                        pattern="[0-9]{5}" 
+                        required
+                    >
+                    <button type="submit" class="submit-btn">Find Center</button>
+                </div>
+            </form>
+            <div id="resultBox" class="result-box result-success"></div>
+        </div>
+
+        <!-- Educational Content -->
+        <h2>How to Safely Handle and Dispose of Light Bulbs</h2>
+        <ul class="steps-list">
+            <li><span class="highlight">Step 1: Identify the bulb type.</span> Compact Fluorescent Lamps (CFLs) and fluorescent tubes contain mercury and require special handling. LEDs and regular incandescents do not contain mercury but should still be kept out of standard recycling.</li>
+            <li><span class="highlight">Step 2: Never toss in curbside recycling.</span> Light bulb glass is made from different material compositions than jars or bottles and will ruin a batch of standard glass recycling.</li>
+            <li><span class="highlight">Step 3: Pack carefully to avoid breakage.</span> If storing spent bulbs for a special collection drop-off day, keep them in their original boxes or wrap them carefully to prevent shattered glass hazards.</li>
+            <li><span class="highlight">Step 4: Look for retail drop-offs.</span> Many national home improvement retailers offer free collection bins at the front of their stores specifically for CFL bulbs and rechargeable batteries.</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>Mercury Alert:</strong> If a CFL bulb breaks in your home, do not vacuum it. Open a window to ventilate the room for 15 minutes, scoop up fragments using stiff paper or cardboard, and wipe the area clean with damp paper towels.
+        </div>
+    </div>
+
+    <script>
+        function checkZip(event) {
+            event.preventDefault();
+            const zip = document.getElementById('zipcode').value;
+            const resultBox = document.getElementById('resultBox');
+            
+            // Simulating a local database check response
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `<strong>Collection Info for ${zip}:</strong> Do not throw bulbs in standard bins. You can bring CFL and LED bulbs to your local Household Hazardous Waste (HHW) depot or participating hardware store drop-offs.`;
+        }
+    </script>
+
+</body>
+</html>
