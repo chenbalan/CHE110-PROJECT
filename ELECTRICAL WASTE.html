@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Waste Recycling Guide</title>
+    <title>Electrical Waste Disposal Guide</title>
     <style>
         :root {
-            --bg-color: #f4f7f6;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
-            --ewaste-blue: #1e3a8a;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            
+            /* Matched colors from the new image */
+            --ewaste-blue: #3b82f6; 
             --ewaste-blue-light: #eff6ff;
+            --text-dark: #121e2d;
+            
             --border-color: #e2e8f0;
         }
 
@@ -35,43 +39,48 @@
             background: var(--card-bg);
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
             text-align: center;
         }
 
-        /* Recreating the provided image label layout */
+        /* Recreating the exact visual layout from the image */
         .recycle-badge-card {
             border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 40px 20px;
             margin-bottom: 30px;
             display: inline-block;
-            min-width: 280px;
-            background-color: #fff;
+            min-width: 320px;
+            background-color: #ffffff;
+            box-sizing: border-box;
         }
 
         .item-title {
-            font-size: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 26px;
             font-weight: 700;
-            color: #1a202c;
-            margin: 0 0 16px 0;
+            color: var(--text-dark);
+            margin: 0 0 24px 0;
+            letter-spacing: -0.5px;
         }
 
         .action-button {
-            background-color: #0052cc;
+            background-color: var(--ewaste-blue);
             color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
-            font-weight: 600;
-            padding: 10px 28px;
+            font-weight: 500;
+            padding: 14px 32px;
             border-radius: 50px;
             display: inline-block;
-            border: none;
+            line-height: 1;
             text-decoration: none;
+            letter-spacing: 0.2px;
         }
 
         /* Form Styling */
         .zip-form-container {
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
@@ -113,7 +122,7 @@
         }
 
         .submit-btn {
-            background-color: #0052cc;
+            background-color: var(--ewaste-blue);
             color: white;
             border: none;
             border-radius: 8px;
@@ -121,11 +130,11 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: opacity 0.2s;
         }
 
         .submit-btn:hover {
-            background-color: #0041a3;
+            opacity: 0.9;
         }
 
         .result-box {
@@ -138,8 +147,8 @@
 
         .result-success {
             background-color: var(--ewaste-blue-light);
-            color: var(--ewaste-blue);
-            border: 1px solid #bfdbfe;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
         }
 
         /* Educational Content Section */
@@ -166,7 +175,7 @@
 
         .highlight {
             font-weight: bold;
-            color: #0052cc;
+            color: var(--ewaste-blue);
         }
 
         .tip-box {
@@ -176,23 +185,23 @@
             border-radius: 0 8px 8px 0;
             text-align: left;
             font-size: 14px;
-            color: var(--ewaste-blue);
+            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Recreated Visual from Image Layout -->
+        <!-- Exact Matching Component for Electrical Waste -->
         <div class="recycle-badge-card">
             <h1 class="item-title">Electrical waste</h1>
-            <div class="action-button">E-Waste Drop-off Only</div>
+            <div class="action-button" role="status">E-Waste Drop-off Only</div>
         </div>
 
         <!-- Local Rules Lookup Form -->
         <div class="zip-form-container">
-            <h3 class="form-title">Check Local Drop-off Locations</h3>
-            <p class="form-desc">E-waste disposal regulations vary by municipality. Enter your ZIP code to find local authorized electrical waste processing centers.</p>
+            <h3 class="form-title">Find E-Waste Drop-Off Collection Hubs</h3>
+            <p class="form-desc">Electronic and electrical devices contain hazardous materials and components that cannot go in standard garbage bins. Enter your ZIP code to locate specialized electronics recycling options.</p>
             <form id="zipForm" onsubmit="checkZip(event)">
                 <div class="form-group">
                     <input 
@@ -210,16 +219,16 @@
         </div>
 
         <!-- Educational Content -->
-        <h2>How to Safely Dispose of Electrical Waste</h2>
+        <h2>How to Safely Handle Electrical & E-Waste</h2>
         <ul class="steps-list">
-            <li><span class="highlight">Step 1: Keep separate from standard bins.</span> Never toss broken electronics, hardware, cords, or appliances into regular garbage or curbside recycling containers.</li>
-            <li><span class="highlight">Step 2: Strip batteries and loose accessories.</span> Detach reusable batteries, protective structures, or fluid containers before handing over equipment.</li>
-            <li><span class="highlight">Step 3: Organize connecting wires.</span> Bundle miscellaneous charging cables, copper cords, and electrical leads together to simplify secondary sorting.</li>
-            <li><span class="highlight">Step 4: Transport to an e-waste facility.</span> Bring items to a community collection event, a designated municipal depot, or an appliance retail trade-in kiosk.</li>
+            <li><span class="highlight">Step 1: Separate items.</span> Keep old appliances, broken chords, adapters, and electronic devices completely isolated from standard recyclables.</li>
+            <li><span class="highlight">Step 2: Wipe personal data.</span> Ensure smartphones, computers, or storage devices are completely wiped clean of personal data before drops.</li>
+            <li><span class="highlight">Step 3: Remove detachable batteries.</span> If the electrical device has an easily removable battery (especially lithium-ion), remove it and place it in a designated battery drop-off bucket.</li>
+            <li><span class="highlight">Step 4: Keep hardware intact.</span> Avoid breaking screens, cracking cases, or exposing internal wiring, as broken e-waste can leak toxins.</li>
         </ul>
 
         <div class="tip-box">
-            <strong>Why specialized handling?</strong> Electrical equipment contains complex chemical layers, lead circuits, and heavy structural plastics that leak toxins if crushed in landfills, but yield highly valuable raw copper and gold when processed correctly.
+            <strong>Why specialized tracking?</strong> Electronics contain toxic elements like lead, cadmium, and mercury alongside valuable metals. Drop-off systems keep chemicals out of local groundwater tables while recovering precious materials.
         </div>
     </div>
 
@@ -229,9 +238,8 @@
             const zip = document.getElementById('zipcode').value;
             const resultBox = document.getElementById('resultBox');
             
-            // Simulating a local database check response
             resultBox.style.display = 'block';
-            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Curbside collection is not available for this material category. Please transport your item to your local municipal hazardous drop-off depot or coordinate with an authorized electrical waste collector.`;
+            resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Curbside collection trucks cannot accept electrical components. Please take these items to an official city hazardous recycling collection event or an authorized retail e-waste drop station.`;
         }
     </script>
 

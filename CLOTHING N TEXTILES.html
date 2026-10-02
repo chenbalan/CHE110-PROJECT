@@ -6,12 +6,16 @@
     <title>Clothing & Textiles Disposal Guide</title>
     <style>
         :root {
-            --bg-color: #f4f7f6;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
-            --donation-blue: #0052cc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            
+            /* Matched colors from the new image */
+            --donation-blue: #3b82f6; 
             --donation-blue-light: #eff6ff;
+            --text-dark: #121e2d;
+            
             --border-color: #e2e8f0;
         }
 
@@ -35,44 +39,48 @@
             background: var(--card-bg);
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
             text-align: center;
         }
 
-        /* Recreating the provided visual from image layout */
+        /* Recreating the exact visual layout from the image */
         .recycle-badge-card {
             border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 40px 20px;
             margin-bottom: 30px;
             display: inline-block;
-            min-width: 280px;
-            background-color: #fff;
+            min-width: 320px;
+            background-color: #ffffff;
+            box-sizing: border-box;
         }
 
         .item-title {
-            font-size: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 26px;
             font-weight: 700;
-            color: #1a202c;
-            margin: 0 0 16px 0;
+            color: var(--text-dark);
+            margin: 0 0 24px 0;
+            letter-spacing: -0.5px;
         }
 
         .action-button {
             background-color: var(--donation-blue);
             color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
-            font-weight: 600;
-            padding: 12px 28px;
+            font-weight: 500;
+            padding: 14px 32px;
             border-radius: 50px;
             display: inline-block;
-            border: none;
+            line-height: 1;
             text-decoration: none;
-            line-height: 1.4;
+            letter-spacing: 0.2px;
         }
 
         /* Form Styling */
         .zip-form-container {
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
@@ -122,11 +130,11 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: opacity 0.2s;
         }
 
         .submit-btn:hover {
-            background-color: #0041a3;
+            opacity: 0.9;
         }
 
         .result-box {
@@ -139,8 +147,8 @@
 
         .result-success {
             background-color: var(--donation-blue-light);
-            color: var(--donation-blue);
-            border: 1px solid #bfdbfe;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
         }
 
         /* Educational Content Section */
@@ -177,17 +185,17 @@
             border-radius: 0 8px 8px 0;
             text-align: left;
             font-size: 14px;
-            color: var(--donation-blue);
+            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Recreated Visual from Image Layout -->
+        <!-- New Color Visual Component -->
         <div class="recycle-badge-card">
             <h1 class="item-title">Clothing & Textiles</h1>
-            <div class="action-button">Donation / Special<br>Drop-off</div>
+            <div class="action-button" role="status">Donation / Special Drop-off</div>
         </div>
 
         <!-- Local Rules Lookup Form -->
@@ -230,7 +238,6 @@
             const zip = document.getElementById('zipcode').value;
             const resultBox = document.getElementById('resultBox');
             
-            // Simulating a local database check response
             resultBox.style.display = 'block';
             resultBox.innerHTML = `<strong>Status for ${zip}:</strong> Standard curbside blue bins do not accept fabrics. Please take your bags to your closest authorized charity drop box, retail take-back counter, or designated solid waste center convenience hub.`;
         }
